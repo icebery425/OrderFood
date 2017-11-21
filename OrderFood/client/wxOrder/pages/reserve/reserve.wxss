@@ -1,0 +1,12 @@
+.tcontainer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+}
+
+.head-address{
+  height: 80rpx;
+  width: 100%;
+  direction: row;
+}

@@ -10,7 +10,7 @@
   </swiper>
 
   <view class="commit-bottom">
-      <button class='commit-btn' hover-class='btn-hover' bindtap="sessionCommit">开始点餐</button>
+      <button class='commit-btn' hover-class='btn-hover' bindtap="reserveCommit">开始点餐</button>
   </view>
 
   <view class="select-item">

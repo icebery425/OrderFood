@@ -19,12 +19,7 @@ Page({
     arrow: '/images/ic_choose.png',
     openTime: '09:30-20:30'
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+
   onLoad: function () {
     var array = this.data.arr
     for (let i = 1; i < 4; i++) {
@@ -69,5 +64,15 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+
+  reserveCommit: function (e) {
+    //TODO
+    var _that = this;
+    wx.navigateTo({
+      url: '/pages/reserve/reserve'
+    })
+
+  },
+
 })
