@@ -1,5 +1,23 @@
 <view class="tcontainer">
   <view class="head-address">
-    <text>送到:</text>
+    <text>送到:{{address}}</text>
+  </view>
+  <view class='devide-line'></view>
+
+  <view class="body-sku">
+    <view class="left-category">
+      <label wx:for="{{category}}" wx:key="unique" >
+          <view class="hc-item" data-pi="{{item}}" bindtap="serviceAddress">
+            <text class="hc-title">{{item.name}}</text>
+          </view>
+      </label>
+    </view>
+    <view class="right-sku">
+      <label wx:for="{{sku}}" wx:key="unique" >
+            <view class="hc-item" data-pi="{{item}}" bindtap="serviceAddress">
+              <text class="hc-title">{{item.name}}</text>
+            </view>
+      </label>
+    </view>
   </view>
 </view>

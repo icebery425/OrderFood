@@ -8,5 +8,45 @@
 .head-address{
   height: 80rpx;
   width: 100%;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  font-size: 32rpx;
+  margin-top: 30rpx;
   direction: row;
+}
+
+.devide-line{
+  background-color:#e5e5e5;
+  height:1rpx;
+}
+
+.body-sku{
+  width: 100%;
+  height:auto;
+  direction: col;
+}
+
+.left-category{
+  width: 20%;
+  height:auto;
+}
+
+.right-sku{
+  width: 80%;
+  height:auto;
+}
+
+.hc-item{
+  display: flex;
+  flex-direction: row;
+  height: 96rpx;
+  position:relative;
+  align-items: center;
+  margin-left: 30rpx;
+  border-bottom: 1rpx solid #dedede;
+}
+.hc-title{
+  size: 16rpx;
+  color: black;
+  font-style:initial;
 }
