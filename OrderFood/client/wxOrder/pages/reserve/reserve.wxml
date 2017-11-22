@@ -7,16 +7,20 @@
   <view class="body-sku">
     <view class="left-category">
       <label wx:for="{{category}}" wx:key="unique" >
-          <view class="hc-item" data-pi="{{item}}" bindtap="serviceAddress">
+          <view class="left-item-on" data-pi="{{item}}" bindtap="serviceAddress">
             <text class="hc-title">{{item.name}}</text>
           </view>
       </label>
     </view>
     <view class="right-sku">
       <label wx:for="{{sku}}" wx:key="unique" >
-            <view class="hc-item" data-pi="{{item}}" bindtap="serviceAddress">
-              <text class="hc-title">{{item.name}}</text>
-            </view>
+          <view class="right-item-on" data-pi="{{item}}" bindtap="serviceAddress">
+              <image src="{{item.avatar}}" class="sku-avatar" mode="aspectFit"></image>
+              <view class="item-sku-info">
+                <text class="item-name">{{item.name}}</text>
+                <text class="item-desc">{{item.desc}}</text>
+              </view>
+          </view>
       </label>
     </view>
   </view>
