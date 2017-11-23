@@ -19,9 +19,29 @@
               <view class="item-sku-info">
                 <text class="item-name">{{item.name}}</text>
                 <text class="item-desc">{{item.desc}}</text>
+                <view class="item-bottom"> 
+                  <text class="item-price">¥{{item.price}}</text>
+                  <image src="{{reduceIcon}}" class="sku-reduce" mode="aspectFit"></image>
+                  <text class="item-quantity">2</text>
+                  <image src="{{addIcon}}" class="sku-add" mode="aspectFit"></image>
+                </view>
+                
               </view>
           </view>
       </label>
     </view>
+  </view>
+
+  <view class="bottom-operation">
+      <view class="price-hint">
+        <view></view>
+        <view class="left-bottom-hint">
+            <text class="left-price">¥23</text>
+            <text class="left-delivery">无需配送费</text>
+        </view>
+      </view>
+      <view class="price-commit">
+        <text class="commit-text">去结算</text>
+      </view>
   </view>
 </view>

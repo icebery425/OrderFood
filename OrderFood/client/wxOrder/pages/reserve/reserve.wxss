@@ -64,7 +64,7 @@
 .item-sku-info{
   display: flex;
   flex-direction: column;
-  margin-left: 5rpx;
+  margin-left: 15rpx;
 }
 
 .hc-title{
@@ -75,13 +75,94 @@
 }
 
 .item-name{
-  font-size: 34rpx;
+  font-size: 30rpx;
   height: 40rpx;
   color: black;
   font-style:initial;
+  margin-top: 6rpx;
 }
 
 .item-desc{
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+
+.item-bottom{
+  display: flex;
+  flex-direction: row;
+  margin-top: 28rpx;
+  vertical-align: middle;
+}
+.item-price{
+  font-size: 27rpx;
+  color: red;
+}
+
+.sku-reduce{
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 135rpx;
+}
+
+.sku-add{
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 5rpx;
+}
+.item-quantity{
+  font-size: 28rpx;
+  color: darkblue;
+  margin-left: 5rpx;
+}
+
+.bottom-operation{
+  position:fixed;
+  height: 100rpx;
+  bottom:0rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   font-size: 26rpx;
-  margin-top: 15rpx;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+  color: #353535;
+}
+
+.price-hint{
+  width: 70%;
+  height: 100rpx;
+  background-color: #353535
+}
+
+.price-commit{
+  width: 30%;
+  height: 100rpx;
+  background-color:red;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+}
+
+.commit-text{
+  color: white;
+  font-size: 30rpx;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+}
+
+.left-bottom-hint{
+  display: flex;
+  flex-direction: column;
+}
+
+.left-price{
+  color: white;
+  font-size: 30rpx;
+}
+
+.left-delivery{
+  color: white;
+  font-size: 24rpx;
 }
