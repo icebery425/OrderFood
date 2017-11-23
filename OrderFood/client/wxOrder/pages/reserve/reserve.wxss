@@ -6,13 +6,33 @@
 }
 
 .head-address{
-  height: 80rpx;
+  height: 100rpx;
   width: 100%;
+  display: flex;
+  flex-direction: row;
   padding-left: 30rpx;
   padding-right: 30rpx;
   font-size: 32rpx;
-  margin-top: 30rpx;
-  direction: row;
+}
+
+.address-style{
+    display: flex;
+    align-items: center;
+}
+.arrow-right2
+{
+  width: 26rpx;
+  height: 100rpx;
+  display: flex;
+  position:fixed;
+  right:0rpx;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 30rpx;
+}
+.right-image2{
+  width: 30rpx;
+  height: 30rpx;
 }
 
 .devide-line{
@@ -43,7 +63,16 @@
   height: 140rpx;
   position:relative;
   align-items: center;
-  margin-left: 30rpx;
+  border-bottom: 1rpx solid #dedede;
+}
+
+.left-item-off{
+  display: flex;
+  flex-direction: row;
+  height: 140rpx;
+  position:relative;
+  align-items: center;
+  background-color: #F1F1F1;
   border-bottom: 1rpx solid #dedede;
 }
 
@@ -72,6 +101,7 @@
   height: 40rpx;
   color: black;
   font-style:initial;
+  margin-left: 20rpx;
 }
 
 .item-name{
@@ -91,7 +121,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 28rpx;
-  vertical-align: middle;
+  text-align: center;
 }
 .item-price{
   font-size: 27rpx;
@@ -110,9 +140,12 @@
   margin-left: 5rpx;
 }
 .item-quantity{
+  display: flex;
   font-size: 28rpx;
   color: darkblue;
   margin-left: 5rpx;
+  align-items: center;
+  justify-content: center;
 }
 
 .bottom-operation{
@@ -132,29 +165,32 @@
 .price-hint{
   width: 70%;
   height: 100rpx;
+  display: flex;
+  align-items: center;
   background-color: #353535
 }
 
 .price-commit{
   width: 30%;
   height: 100rpx;
+  display: flex;
   background-color:red;
   align-items: center;
-  justify-content: center;
-  text-align:center;
 }
 
 .commit-text{
+  display: flex;
   color: white;
   font-size: 30rpx;
+  margin-left: 65rpx;
   align-items: center;
   justify-content: center;
-  text-align:center;
 }
 
 .left-bottom-hint{
   display: flex;
   flex-direction: column;
+  margin-left: 10rpx;
 }
 
 .left-price{
@@ -165,4 +201,14 @@
 .left-delivery{
   color: white;
   font-size: 24rpx;
+}
+
+.cart-view{
+  display: flex;
+  margin-left: 50rpx;
+}
+
+.cart-icon{
+  height: 50rpx;
+  width: 50rpx;
 }

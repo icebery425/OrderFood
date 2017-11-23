@@ -1,13 +1,19 @@
 <view class="tcontainer">
   <view class="head-address">
-    <text>送到:{{address}}</text>
+    <text class="address-style">送到:{{address}}</text>
+    <view class="arrow-right2">
+        <image src="/images/ic_choose.png" class="right-image2"> </image>
+    </view>
   </view>
   <view class='devide-line'></view>
 
   <view class="body-sku">
     <view class="left-category">
       <label wx:for="{{category}}" wx:key="unique" >
-          <view class="left-item-on" data-pi="{{item}}" bindtap="serviceAddress">
+          <view wx:if="{{item.name==selectName}}" class="left-item-on" data-pi="{{item}}" bindtap="categoryChoose">
+            <text class="hc-title">{{item.name}}</text>
+          </view>
+          <view wx:else class="left-item-off" data-pi="{{item}}" bindtap="categoryChoose">
             <text class="hc-title">{{item.name}}</text>
           </view>
       </label>
@@ -34,9 +40,11 @@
 
   <view class="bottom-operation">
       <view class="price-hint">
-        <view></view>
+        <view class="cart-view">
+          <image src="{{cartIcon}}" class="cart-icon" mode="aspectFit"></image>
+        </view>
         <view class="left-bottom-hint">
-            <text class="left-price">¥23</text>
+            <text class="left-price">¥{{totalPrice}}</text>
             <text class="left-delivery">无需配送费</text>
         </view>
       </view>

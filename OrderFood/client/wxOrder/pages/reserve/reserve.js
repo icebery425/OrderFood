@@ -3,6 +3,9 @@ Page({
       address:'深圳南山高新园',
       reduceIcon:"/images/dianc_list_ic_reduce.png",
       addIcon: "/images/dianc_list_ic_plus.png",
+      cartIcon: "/images/ic_shop.png",
+      totalPrice: 120,
+      selectName: "三荤一素",
       category:[
         { "id": 1, "name": "两荤一素"},
         { "id": 2, "name": "三荤一素"},
@@ -18,4 +21,8 @@ Page({
 
    onLoad: function () {
    },
+
+   categoryChoose:function(e){
+
+   }
 })
