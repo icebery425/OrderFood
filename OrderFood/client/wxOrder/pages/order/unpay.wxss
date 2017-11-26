@@ -15,3 +15,25 @@
   flex-direction: row;
   margin-left: 15rpx;
 }
+
+.head-hint{
+  display: flex;
+  height: 88rpx;
+  align-items: center;
+}
+
+.arrow-right2
+{
+  width: 26rpx;
+  height: 100rpx;
+  display: flex;
+  position:fixed;
+  right:0rpx;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 30rpx;
+}
+.right-image2{
+  width: 30rpx;
+  height: 30rpx;
+}
