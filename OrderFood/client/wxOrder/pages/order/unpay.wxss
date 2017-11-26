@@ -1,0 +1,17 @@
+.tcontainer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+}
+
+.head-info{
+   font-size: 30rpx;
+   padding-top: 20rpx;
+}
+
+.head-item{
+  display: flex;
+  flex-direction: row;
+  margin-left: 15rpx;
+}

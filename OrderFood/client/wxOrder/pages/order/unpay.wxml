@@ -1,0 +1,18 @@
+<view class="tcontainer">
+  <view class="head-info">
+    <view class="head-item">
+      <text>姓名：</text>
+      <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入您的姓名" />
+    </view>
+
+    <view class="head-item">
+      <text>联系方式：</text>
+      <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入您的联系方式" />
+    </view>
+
+    <view class="head-item">
+      <text>送餐地址：</text>
+      <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入您的送餐地址" />
+    </view>
+  </view>
+</view>

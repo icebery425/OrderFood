@@ -49,7 +49,7 @@
         </view>
       </view>
       <view class="price-commit">
-        <text class="commit-text">去结算</text>
+        <text class="commit-text" bindtap="orderCommit">去结算</text>
       </view>
   </view>
 </view>

@@ -24,5 +24,12 @@ Page({
 
    categoryChoose:function(e){
 
+   },
+
+   orderCommit:function(){
+     wx.navigateTo({
+       url: '/pages/order/unpay'
+     })
+
    }
 })
