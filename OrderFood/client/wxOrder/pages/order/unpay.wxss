@@ -1,5 +1,5 @@
 .tcontainer {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   position: absolute;
   background-color: white;
@@ -8,6 +8,12 @@
 .head-info{
    font-size: 30rpx;
    padding-top: 20rpx;
+}
+
+.top-container{
+  position:fixed;
+  height: auto;
+  bottom:100rpx;
 }
 
 .head-item{
