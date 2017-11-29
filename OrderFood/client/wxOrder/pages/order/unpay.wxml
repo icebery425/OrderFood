@@ -18,4 +18,52 @@
       </view>
     </view>
   </view>
+
+  <view class="right-sku">
+    <label wx:for="{{orderItems}}" wx:key="unique" >
+        <view class="right-item-on" data-pi="{{item}}" bindtap="serviceAddress">
+            <image src="{{item.avatar}}" class="sku-avatar" mode="aspectFit"></image>
+            <view class="item-sku-info">
+              <text class="item-name">{{item.name}}</text>
+              <text class="item-desc">{{item.desc}}</text>
+              <view class="item-bottom"> 
+                <text class="item-price">¥{{item.price}}</text>
+                <text class="item-quantity">x{{item.quantity}}</text>
+              </view>
+            </view>
+        </view>
+    </label>
+  </view>
+
+  <view class="head-info">
+    <view class="head-item">
+      <text class="head-hint">配送方式：</text>
+      <text bindinput="bindMobileInput" class='bottom-right-text' >免运费</text>
+    </view>
+
+    <view class="head-item">
+      <text class="head-hint">买家留言：</text>
+      <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入备注" />
+    </view>
+
+    <view class="head-item">
+      <text class="head-hint">合计：</text>
+      <text bindinput="bindMobileInput" class='bottom-right-text' >¥{{totalPrice}}</text>
+    </view>
+  </view>
+
+
+  <view class="bottom-operation">
+    <view class="price-hint">
+      <view class="left-bottom-hint">
+          <text style="font-size:26rpx;color: white">合计:</text>
+          <text class="left-price">¥{{totalPrice}}</text>
+      </view>
+    </view>
+    <view class="price-commit">
+      <text class="commit-text" bindtap="orderCommit">去结算</text>
+    </view>
+  </view>
+
+
 </view>
