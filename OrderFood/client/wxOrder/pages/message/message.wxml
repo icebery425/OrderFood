@@ -1,0 +1,13 @@
+<view class="outer-container-white">
+    <view class="group-itmes" >
+    <label wx:for="{{msgItems}}" wx:key="unique" >
+        <view class="hc-item" data-pi="{{item}}" bindtap="serviceAddress">
+          <view class="item-top">
+            <text class="title-style">{{item.title}}</text>
+            <text class="title-time">{{item.time}}</text>
+          </view>
+          <textarea class="content-style">{{item.desc}}</textarea>
+        </view>
+    </label>
+    </view>
+</view>

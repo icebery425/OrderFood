@@ -14,7 +14,7 @@
   </view>
 
   <view class="select-item">
-      <view class="content-container">
+      <view class="content-container" bindtap='mineOrders'>
           <image src="/images/home_ic_order.png" class="icon-image" mode="aspectFit"></image>
           <text class="title-bg">我的订单</text>
           <view class='hc-image-container'>
@@ -23,7 +23,7 @@
       </view>
       <view class='devide-line'></view>
 
-      <view class="content-container">
+      <view class="content-container" bindtap='mineCoupons'>
           <image src="/images/home_ic_card.png" class="icon-image" mode="aspectFit"></image>
           <text class="title-bg">我的卡包</text>
           <view class='hc-image-container'>
@@ -32,7 +32,7 @@
       </view>
       <view class='devide-line'></view>
 
-      <view class="content-container">
+      <view class="content-container" bindtap='mineMessages'>
           <image src="/images/home_ic_news.png" class="icon-image" mode="aspectFit"></image>
           <text class="title-bg">消息中心</text>
           <view class='hc-image-container'>

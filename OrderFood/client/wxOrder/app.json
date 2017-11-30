@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/reserve/reserve",
-    "pages/order/unpay"
+    "pages/order/unpay",
+    "pages/message/message"
   ],
   "window":{
     "backgroundTextStyle":"light",

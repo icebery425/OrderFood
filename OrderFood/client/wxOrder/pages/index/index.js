@@ -75,4 +75,10 @@ Page({
 
   },
 
+  mineMessages:function(e){
+    wx.navigateTo({
+      url: '/pages/message/message'
+    })
+  }
+
 })

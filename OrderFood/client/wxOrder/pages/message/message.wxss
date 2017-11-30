@@ -1,0 +1,60 @@
+/* pages/helpcenter/help.wxss */
+.hc-image-container{
+  display: flex;
+  position: absolute;
+  right: 30rpx;
+  height: 96rpx;
+  width:30rpx;
+  justify-content:center;
+  align-items:center;
+}
+
+.hc-choose-image{
+  display: flex;
+  right: 30rpx;
+  height: 30rpx;
+  width:30rpx;
+}
+.hc-item{
+  display: flex;
+  flex-direction:column;
+  height: 135rpx;
+  position:relative;
+  margin-left: 30rpx;
+  padding-top: 15rpx;
+  border-bottom: 1rpx solid #dedede;
+}
+.title-style{
+  size: 15rpx;
+  color: black;
+  font-style:initial;
+}
+
+.content-style{
+  font-size: 24rpx;
+  color: #888888;
+  margin-top: 65rpx;
+}
+
+.group-itmes{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 5px solid white;
+  }
+
+.item-top{
+    display: flex;
+    flex-direction: row;
+}
+
+.title-time{
+  display: flex;
+  position: absolute;
+  right: 30rpx;
+  height: auto;
+  width: auto;
+  justify-content:center;
+  align-items:center;
+  font-size: 24rpx;
+  color: #b2b2b2;
+}
