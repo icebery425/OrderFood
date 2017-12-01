@@ -1,5 +1,5 @@
 <view class="tcontainer">
-  <view class="head-address">
+  <view class="head-address" bindtap='chooseAddress'>
     <text class="address-style">送到:{{address}}</text>
     <view class="arrow-right2">
         <image src="/images/ic_choose.png" class="right-image2"> </image>

@@ -1,14 +1,16 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/reserve/reserve",
     "pages/order/unpay",
-    "pages/message/message"
+    "pages/message/message",
+    "pages/coupon/coupon",
+    "pages/map/location"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#22292C",
     "navigationBarTitleText": "小当家",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   }
 }

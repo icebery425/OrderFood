@@ -79,6 +79,12 @@ Page({
     wx.navigateTo({
       url: '/pages/message/message'
     })
+  },
+
+  mineCoupons:function(e){
+    wx.navigateTo({
+      url: '/pages/coupon/coupon'
+    })
   }
 
 })

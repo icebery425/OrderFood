@@ -31,5 +31,11 @@ Page({
        url: '/pages/order/unpay'
      })
 
+   },
+
+   chooseAddress:function(){
+     wx.navigateTo({
+       url: '/pages/map/location'
+     })
    }
 })
