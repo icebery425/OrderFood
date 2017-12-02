@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    Height:500,
     markers: [{
       iconPath: "/images/songc_nav_ic_add.png",
       id: 0,
@@ -52,7 +53,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var _this = this;
+
+    wx.getSystemInfo({
+      success: function (res) {
+        //设置map高度，根据当前设备宽高满屏显示
+        var tempheight = res.windowHeight;
+        _this.setData({
+            Height: res.windowHeight
+        })
+      },
+    })
   },
 
   /**
