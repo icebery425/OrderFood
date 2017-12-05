@@ -1,0 +1,32 @@
+<!--pages/order/list.wxml-->
+<view class="tcontainer">
+    <view class="sku-item">
+      <label wx:for="{{orderItems}}" wx:key="unique" >
+        <view class='order-item-on'>
+          <text>下单时间：{{item.time}}</text>
+          <text>订单编号：{{item.number}}</text>
+          <view class="sku-item-on" data-pi="{{item}}" bindtap="serviceAddress">
+              <image src="{{item.items[0].avatar}}" class="sku-avatar" mode="aspectFit"></image>
+              <view class="item-sku-info">
+                <text class="item-name">{{item.items[0].name}}</text>
+                <text class="item-desc">{{item.items[0].desc}}</text>
+                <view class="item-bottom"> 
+                  <text class="item-price">¥{{item.items[0].price}}</text>
+                  <text class="item-quantity">x{{item.items[0].quantity}}</text>
+                </view>
+              </view>
+          </view>
+          <view class='order-bottom-style'>
+            <text>查看全部{{}}件商品</text>
+            <text>合计</text>
+            <text>{{item.paidAmount}}</text>
+          </view>
+          <view class='oper-item-style'>
+            <button>再来一单</button>
+            <button>取消订单</button>
+            <button>确认付款</button>
+          </view>
+        </view>
+      </label>
+    </view>
+</view>

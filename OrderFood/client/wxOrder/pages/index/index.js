@@ -75,6 +75,13 @@ Page({
 
   },
 
+  mineOrders:function(e){
+    wx.navigateTo({
+      url: '/pages/order/list'
+    })
+  },
+
+
   mineMessages:function(e){
     wx.navigateTo({
       url: '/pages/message/message'

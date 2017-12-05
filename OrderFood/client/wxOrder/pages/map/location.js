@@ -6,6 +6,10 @@ Page({
    */
   data: {
     Height:500,
+    globalData: {
+      userInfo: null, 
+      locationInfo: null
+    },
     markers: [{
       iconPath: "/images/songc_nav_ic_add.png",
       id: 0,
@@ -64,6 +68,27 @@ Page({
         })
       },
     })
+  },
+
+  getLocationInfo: function (cb) {
+    var that = this;
+    if (this.globalData.locationInfo) {
+      cb(this.globalData.locationInfo)
+    } else {
+      wx.getLocation({
+        type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+        success: function (res) {
+          that.globalData.locationInfo = res;
+          cb(that.globalData.locationInfo)
+        },
+        fail: function () {
+          // fail
+        },
+        complete: function () {
+          // complete
+        }
+      })
+    }
   },
 
   /**

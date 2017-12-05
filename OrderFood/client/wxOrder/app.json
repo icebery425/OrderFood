@@ -5,7 +5,8 @@
     "pages/order/unpay",
     "pages/message/message",
     "pages/coupon/coupon",
-    "pages/map/location"
+    "pages/map/location",
+    "pages/order/list"
   ],
   "window": {
     "backgroundTextStyle": "light",
