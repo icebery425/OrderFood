@@ -11,12 +11,12 @@ Page({
         "number":"NR000345",
         "status":200, 
         "paidAmout":120.00,
-        "items":{"name": "叉烧饭", 
+        "skus":[{"name": "叉烧饭", 
                   "avatar": "/images/img_chas.png", 
                   "price": 12.00, 
                   "quantity": 10,         
                   "desc": "叉烧+精致小炒+时蔬+米饭" 
-                  }
+                  }]
       }
     ],
   },
