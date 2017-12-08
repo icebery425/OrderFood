@@ -11,4 +11,11 @@ Page({
   onLoad: function () {
     
   },
+
+  orderCommit: function () {
+    wx.navigateTo({
+      url: '/pages/index/index'
+    })
+
+  },
 })

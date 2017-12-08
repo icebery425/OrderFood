@@ -22,8 +22,13 @@ Page({
    onLoad: function () {
    },
 
-   categoryChoose:function(e){
-
+   categoryChoose: function (event){
+     var _that = this;
+     var item = event.currentTarget.dataset.pi;
+     console.log("用户点击分类：", item.name);
+     _that.setData({
+       selectName: item.name
+     })
    },
 
    orderCommit:function(){
