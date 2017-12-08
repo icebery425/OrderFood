@@ -1,5 +1,5 @@
 .tcontainer {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   position: absolute;
   background-color: white;
@@ -11,9 +11,10 @@
 }
 
 .top-container{
-  position:fixed;
+  display: flex;
+  flex-direction:column;
   height: auto;
-  bottom:100rpx;
+  margin-bottom: 100rpx;
 }
 
 .head-item{

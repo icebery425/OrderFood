@@ -1,22 +1,11 @@
 /**index.wxss**/
 .tcontainer {
+  display: flex;
   height: 100%;
-  width: 100%;
-  position: absolute;
+  flex-direction: column;
   background-color: white;
 }
 
-.devide-line{
-  background-color:#e5e5e5;
-  height:1rpx;
-}
-
-.tbody {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background-color: #f1f1f1;
-}
 
 .top-container {
   height: auto;
@@ -35,12 +24,17 @@
 
 .select-item{
   height:auto;
-  width: 100%;
-  padding-left: 15rpx;
-  padding-right: 15rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
   flex-direction: row;
   background: white;
   margin-top: 30rpx;
+}
+
+.devide-line{
+  background-color:#e5e5e5;
+  height:1rpx;
+  width: 100%;
 }
 
 .content-container{
@@ -49,6 +43,7 @@
   height: 110rpx; 
   align-items: center;
   margin-top: 10dp;
+
 }
 
 .title-bg{
