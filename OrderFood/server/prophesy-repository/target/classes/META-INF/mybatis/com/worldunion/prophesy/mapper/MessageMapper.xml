@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.MessageDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.sku.Message">
+    <id column="messageid" jdbcType="INTEGER" property="messageid" />
+    <result column="messagetypeid" jdbcType="INTEGER" property="messagetypeid" />
+    <result column="messagetitle" jdbcType="VARCHAR" property="messagetitle" />
+    <result column="messagedesc" jdbcType="VARCHAR" property="messagedesc" />
+    <result column="isRead" jdbcType="VARCHAR" property="isRead" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    messageid, messagetypeid, messagetitle, messagedesc
+  </sql>
+ 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_message
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_message
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.worldunion.prophesy.model.sku.Message">
+    insert into t_message (messageid, messagetypeid, messagetitle, 
+      messagedesc)
+    values (#{messageid,jdbcType=INTEGER}, #{messagetypeid,jdbcType=INTEGER}, #{messagetitle,jdbcType=VARCHAR}, 
+      #{messagedesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worldunion.prophesy.model.sku.Message">
+    insert into t_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageid != null">
+        messageid,
+      </if>
+      <if test="messagetypeid != null">
+        messagetypeid,
+      </if>
+      <if test="messagetitle != null">
+        messagetitle,
+      </if>
+      <if test="messagedesc != null">
+        messagedesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageid != null">
+        #{messageid,jdbcType=INTEGER},
+      </if>
+      <if test="messagetypeid != null">
+        #{messagetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="messagetitle != null">
+        #{messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messagedesc != null">
+        #{messagedesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_message
+    <set>
+      <if test="record.messageid != null">
+        messageid = #{record.messageid,jdbcType=INTEGER},
+      </if>
+      <if test="record.messagetypeid != null">
+        messagetypeid = #{record.messagetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.messagetitle != null">
+        messagetitle = #{record.messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messagedesc != null">
+        messagedesc = #{record.messagedesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_message
+    set messageid = #{record.messageid,jdbcType=INTEGER},
+      messagetypeid = #{record.messagetypeid,jdbcType=INTEGER},
+      messagetitle = #{record.messagetitle,jdbcType=VARCHAR},
+      messagedesc = #{record.messagedesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worldunion.prophesy.model.sku.Message">
+    update t_message
+    <set>
+      <if test="messagetypeid != null">
+        messagetypeid = #{messagetypeid,jdbcType=INTEGER},
+      </if>
+      <if test="messagetitle != null">
+        messagetitle = #{messagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="messagedesc != null">
+        messagedesc = #{messagedesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worldunion.prophesy.model.sku.Message">
+    update t_message
+    set messagetypeid = #{messagetypeid,jdbcType=INTEGER},
+      messagetitle = #{messagetitle,jdbcType=VARCHAR},
+      messagedesc = #{messagedesc,jdbcType=VARCHAR}
+    where messageid = #{messageid,jdbcType=INTEGER}
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+    <select id="queryUserMessageByParams" parameterType="map" resultMap="BaseResultMap">
+   select a.userid,a.messageid,a.messagetypeid,a.messagetitle,
+		a.isRead,a.messagedesc from t_message a where 1=1
+   <if test="userid != null and userid !='' "> and a.userid=#{userid}</if>
+   <if test="messageid != null and messageid !='' "> and a.messageid=#{messageid}</if>
+   <if test="pageIndex != null and pageIndex !='' and pageSize != null and pageSize !='' "> limit  #{start},#{end}</if>
+  
+  </select>
+  
+</mapper>

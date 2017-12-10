@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.StaffDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.account.Staff">
+    <id column="STAFFID" jdbcType="DECIMAL" property="staffid" />
+    <result column="STAFFNAME" jdbcType="VARCHAR" property="staffname" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="STATE" jdbcType="DECIMAL" property="state" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="STAFFCODE" jdbcType="VARCHAR" property="staffcode" />
+  </resultMap>
+  
+  <sql id="OracleDialectPrefix">
+    <if test="page != null">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+
+  
+  <insert id="insert" parameterType="com.worldunion.prophesy.model.account.Staff">
+
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="staffid">
+      SELECT SEQ_SYS_STAFF_ID.NEXTVAL as ID from DUAL
+    </selectKey>
+
+    insert into TSM_STAFF (STAFFID, STAFFNAME, EMAIL,
+    PASSWORD,
+    STATE, CREATETIME, STAFFCODE
+    )
+    values (#{staffid,jdbcType=DECIMAL}, #{staffname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+    #{password,jdbcType=VARCHAR},
+    #{state,jdbcType=DECIMAL}, sysdate, #{staffcode,jdbcType=VARCHAR}
+    )
+  </insert>
+
+
+  <update id="update" parameterType="com.worldunion.prophesy.model.account.Staff" >
+    update TSM_STAFF
+    set STAFFNAME = #{staffname,jdbcType=VARCHAR},
+    EMAIL = #{email,jdbcType=VARCHAR},
+    PASSWORD = #{password,jdbcType=VARCHAR},
+    STATE = #{state,jdbcType=DECIMAL},
+    STAFFCODE = #{staffcode,jdbcType=VARCHAR}
+    where STAFFID = #{staffid,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="updateBySelective" parameterType="com.worldunion.prophesy.model.account.Staff" >
+    update TSM_STAFF
+    <set >
+      <if test="staffid != null" >
+        STAFFID = #{staffid,jdbcType=DECIMAL},
+      </if>
+      <if test="staffname != null" >
+        STAFFNAME = #{staffname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+
+      <if test="staffcode != null" >
+        STAFFCODE = #{staffcode,jdbcType=OTHER},
+      </if>
+    </set>
+    where STAFFID = #{staffid,jdbcType=DECIMAL}
+  </update>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TSM_STAFF
+    where STAFFID = #{staffid,jdbcType=DECIMAL}
+  </delete>
+
+
+  <sql id="Base_Column_List">
+    STAFFID, STAFFNAME, EMAIL, PASSWORD,   STATE, CREATETIME, STAFFCODE
+  </sql>
+
+
+  <select id="countByMap" parameterType="map" resultType="java.lang.Integer" >
+    select count(*) from TSM_STAFF
+  </select>
+
+
+
+
+  <select id="searchByMap" resultType="map" parameterType="map" >
+    select
+    STAFFID, STAFFNAME, EMAIL, STATE,
+    to_char(CREATETIME,'yyyy-MM-dd hh24:mi:ss') as "CREATETIME",
+     STAFFCODE
+    from tsm_staff
+    where 1=1
+
+    <if test="keywords !=null and keywords !='' ">
+      and	(STAFFCODE LIKE  '%' || #{keywords} || '%' OR STAFFNAME LIKE '%' || #{keywords} || '%')
+    </if>
+
+    order BY STATE asc,STAFFCODE asc
+  </select>
+
+
+
+  <select id="selectCountByMap" parameterType="map" resultType="java.lang.Integer">
+
+    SELECT  count(1) from tsm_staff
+    where 1=1
+
+    <if test="staffCode !=null and staffCode !='' ">
+      and	STAFFCODE = #{staffCode}
+    </if>
+
+    <if test="staffId !=null and staffId !='' ">
+      and	STAFFID = ${staffId}
+    </if>
+
+    <if test="excludeStaffId !=null and excludeStaffId !='' ">
+      and	STAFFID != ${excludeStaffId}
+    </if>
+
+  </select>
+
+
+  <select id="selectByMap" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tsm_staff
+    where 1=1
+
+    <if test="staffCode !=null and staffCode !='' ">
+      and	STAFFCODE = #{staffCode}
+    </if>
+
+    <if test="staffId !=null and staffId !='' ">
+      and	STAFFID = ${staffId}
+    </if>
+
+    <if test="excludeStaffId !=null and excludeStaffId !='' ">
+      and	STAFFID != ${excludeStaffId}
+    </if>
+
+    <if test="keywords !=null and keywords !='' ">
+      and	(STAFFCODE LIKE  '%' || #{keywords} || '%' OR STAFFNAME LIKE '%' || #{keywords} || '%')
+    </if>
+
+  </select>
+  
+  
+   <select id="searchByMapPageCount" resultType="java.lang.Integer" parameterType="map" >
+		select 
+			count(1)
+		from 
+		(
+			select
+			    STAFFID, STAFFNAME, EMAIL, STATE,
+			    to_char(CREATETIME,'yyyy-MM-dd hh24:mi:ss') as "CREATETIME",
+			     STAFFCODE
+			    from tsm_staff
+			    where 1=1
+			   	<if test="keywords !=null and keywords !='' ">
+		      		and	(STAFFCODE LIKE  '%' || #{keywords} || '%' OR STAFFNAME LIKE '%' || #{keywords} || '%')
+		    	</if>
+		) kk
+	    
+  </select>
+  
+  
+  <select id="searchByMapPage" resultMap="BaseResultMap" parameterType="map" >
+  	<include refid="OracleDialectPrefix"/>
+	    select
+		    STAFFID, STAFFNAME, EMAIL, STATE,
+		    to_char(CREATETIME,'yyyy-MM-dd hh24:mi:ss') as "CREATETIME",
+		     STAFFCODE
+		    from tsm_staff
+		    where 1=1
+		   	<if test="keywords !=null and keywords !='' ">
+	      		and	(STAFFCODE LIKE  '%' || #{keywords} || '%' OR STAFFNAME LIKE '%' || #{keywords} || '%')
+	    	</if>
+	    	<if test="sidx !=null and sidx !='' ">
+	      		order BY ${sidx} ${sord}
+	    	</if>
+    <include refid="OracleDialectSuffix"/>
+  </select>
+  
+</mapper>

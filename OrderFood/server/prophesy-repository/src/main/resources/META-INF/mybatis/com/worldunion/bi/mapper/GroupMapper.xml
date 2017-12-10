@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.GroupDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.account.Group">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+	<id column="NAME" jdbcType="VARCHAR" property="name" />
+	<id column="FK_PARENT_ID" jdbcType="VARCHAR" property="parent.id" />
+	<id column="TYPE" jdbcType="VARCHAR" property="type" />
+	<id column="REMARK" jdbcType="VARCHAR" property="remark" />
+	<id column="STATE" jdbcType="INTEGER" property="state" />
+	<id column="LEAF" jdbcType="INTEGER" property="leaf" />
+	<id column="CREATETIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  
+  <insert id="insert" parameterType="com.worldunion.prophesy.model.account.Group">
+    insert into tsm_group (
+  		id,
+		name,
+  		fk_parent_id,
+		type,
+  		remark,
+		state,
+		leaf,
+		CREATETIME
+ 	 )
+ 	 values (
+ 		 #{id,jdbcType=VARCHAR},
+ 		 #{name,jdbcType=VARCHAR},
+ 		 #{parent.id,jdbcType=VARCHAR},
+ 		 #{type,jdbcType=VARCHAR},
+ 		 #{remark,jdbcType=VARCHAR},
+ 		 #{state,jdbcType=INTEGER},
+ 		 #{leaf,jdbcType=INTEGER},
+ 		 sysdate
+ 	 )
+  </insert>
+  
+  
+  <update id="update" parameterType="com.worldunion.prophesy.model.account.Group">
+		update tsm_group
+			<set>
+				name =#{name,jdbcType=VARCHAR},
+				fk_parent_id =#{parent.id,jdbcType=VARCHAR},
+				type =#{type,jdbcType=VARCHAR},
+				remark =#{remark,jdbcType=VARCHAR},
+				state =#{state,jdbcType=INTEGER},
+				leaf =#{leaf,jdbcType=INTEGER},
+	 	 	</set>
+	    where id=#{id}
+	
+	</update>
+	
+	
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from tsm_group where id=#{id,jdbcType=VARCHAR}
+	</delete>
+
+	
+	<update id="updateLeaf" parameterType="com.worldunion.prophesy.model.account.Group">
+		update tsm_group
+			<set>
+				leaf =#{leaf,jdbcType=VARCHAR}
+	 	 	</set>
+	    where id=#{id}
+	</update>
+	
+
+	<select id="findAllGroups" resultMap="BaseResultMap" parameterType="map">
+		select * from tsm_group gr where 1=1
+		<if test="type !=null and type !='' ">
+			and gr.type=#{type}
+		</if>
+
+		<if test="id !=null and id !='' ">
+			and gr.id=#{id}
+		</if>
+		
+		<if test="nid !=null and nid !='' ">
+			and gr.id <![CDATA[<>]]> #{nid}
+		</if>
+		
+		order by gr.id asc
+	</select>
+	
+
+	<select id="findGroups" resultMap="BaseResultMap" parameterType="com.worldunion.prophesy.model.account.Group">
+		select * from tsm_group gr where 1=1
+		<if test="name !=null and name !='' ">
+			and gr.name=#{name}
+		</if>
+		<if test="id !=null and id !='' ">
+			and gr.id!=#{id}
+		</if>
+		order by gr.id asc
+	</select>
+
+
+	<resultMap id="BaseExtraResultMap" type="com.worldunion.prophesy.model.account.Group">
+		<id column="id" jdbcType="VARCHAR" property="id" />
+		<id column="name" jdbcType="VARCHAR" property="name" />
+		<id column="fk_parent_id" jdbcType="VARCHAR" property="parent.id" />
+		<id column="type" jdbcType="VARCHAR" property="type" />
+		<id column="remark" jdbcType="VARCHAR" property="remark" />
+		<id column="state" jdbcType="INTEGER" property="state" />
+		<id column="leaf" jdbcType="INTEGER" property="leaf" />
+		<collection property="resourcesList" javaType="ArrayList" column="id" select="findResourcesByGroupId" ></collection>
+	</resultMap>
+	
+
+	<select id="findResourcesByGroupId" parameterType="string" resultType="com.worldunion.prophesy.model.account.Resource">
+	 	select  gu.fk_resource_id as "id" 
+	 	from tsm_group_resource gu  where gu.fk_group_id =#{id}
+	</select>
+	
+	
+	<select id="findByOne" resultMap="BaseExtraResultMap" parameterType="map">
+		select * from tsm_group gr where 1=1
+			<if test="type !=null and type !='' ">
+				and gr.type=#{type}
+			</if>
+	
+			<if test="id !=null and id !='' ">
+				and gr.id=#{id}
+			</if>
+			
+			<if test="nid !=null and nid !='' ">
+				and gr.id <![CDATA[<>]]> #{nid}
+			</if>
+	</select>
+
+
+<!-- 删除节点后需要更新父类为1 ，但是没有子节点的数据， -->
+	<select id="findNoChildList" resultMap="BaseResultMap" parameterType="map">
+		select 
+			group0_.*
+	    from
+	        tsm_group group0_ 
+	    where
+	        group0_.leaf=1 
+	        and (
+	            select
+	                count(group1_.id) 
+	            from
+	                tsm_group group1_ 
+	            where
+	                group1_.fk_parent_id=group0_.id
+	        )=0
+	</select>
+	
+	<select id="searchByMap" resultType="map" parameterType="map" >
+		SELECT ID,NAME,TYPE,STATE,LEAF,TO_CHAR(CREATETIME,'yyyy-MM-dd hh24:mi:ss') as "CREATETIME" FROM tsm_group
+		WHERE 1=1
+	</select>
+  
+  	<sql id="OracleDialectPrefix">
+    	<if test="page != null">
+      	select * from ( select row_.*, rownum rownum_ from ( 
+    	</if>
+  	</sql>
+  	<sql id="OracleDialectSuffix">
+    	<if test="page != null">
+      	<![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    	</if>
+  	</sql>
+  
+  	<select id="searchByMapPageCount" resultType="java.lang.Integer" parameterType="map" >
+		select 
+			count(1)
+		from 
+		(
+			SELECT ID,NAME,TYPE,STATE,LEAF,TO_CHAR(CREATETIME,'yyyy-MM-dd hh24:mi:ss') as "CREATETIME" FROM tsm_group
+		WHERE 1=1
+		)
+  	</select>
+  	
+  	<select id="searchByMapPage" resultMap="BaseResultMap" parameterType="map" >
+  		<include refid="OracleDialectPrefix"/>
+	    SELECT ID,NAME,TYPE,STATE,LEAF,TO_CHAR(CREATETIME,'yyyy-MM-dd hh24:mi:ss') as "CREATETIME" FROM tsm_group
+			WHERE 1=1
+    	<include refid="OracleDialectSuffix"/>
+  	</select>
+  
+</mapper>

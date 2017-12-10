@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.SkuDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.sku.Sku">
+    <id column="skuid" jdbcType="INTEGER" property="skuid" />
+    <result column="skuname" jdbcType="VARCHAR" property="skuname" />
+    <result column="skuprice" jdbcType="DOUBLE" property="skuprice" />
+    <result column="skudesc" jdbcType="VARCHAR" property="skudesc" />
+    <result column="skupicaddr" jdbcType="VARCHAR" property="skupicaddr" />
+    <result column="skutypeid" jdbcType="INTEGER" property="skutypeid" />
+    <result column="status" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <resultMap type="com.worldunion.prophesy.model.sku.Sku" extends="BaseResultMap" id="BaseResultMapWithOther">
+		<result column="promotionTag" jdbcType="VARCHAR" property="promotionTag" />
+		<result column="skutotalnum" jdbcType="DOUBLE" property="skutotalnum" />
+		<result column="skumaxnum" jdbcType="DOUBLE" property="skumaxnum" />
+		<result column="skuSurplusnum" jdbcType="DOUBLE" property="skuSurplusnum" />
+		<result column="onstatus" jdbcType="VARCHAR" property="onstatus" />
+	</resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    skuid, skuname, skuprice, skudesc, skupicaddr, skutypeid, status
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku
+    where skuid = #{skuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_sku
+    where skuid = #{skuid,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.worldunion.prophesy.model.sku.Sku">
+    insert into t_sku (skuid, skuname, skuprice, 
+      skudesc, skupicaddr, skutypeid, 
+      status)
+    values (#{skuid,jdbcType=INTEGER}, #{skuname,jdbcType=VARCHAR}, #{skuprice,jdbcType=DOUBLE}, 
+      #{skudesc,jdbcType=VARCHAR}, #{skupicaddr,jdbcType=VARCHAR}, #{skutypeid,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worldunion.prophesy.model.sku.Sku">
+    insert into t_sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="skuid != null">
+        skuid,
+      </if>
+      <if test="skuname != null">
+        skuname,
+      </if>
+      <if test="skuprice != null">
+        skuprice,
+      </if>
+      <if test="skudesc != null">
+        skudesc,
+      </if>
+      <if test="skupicaddr != null">
+        skupicaddr,
+      </if>
+      <if test="skutypeid != null">
+        skutypeid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="skuid != null">
+        #{skuid,jdbcType=INTEGER},
+      </if>
+      <if test="skuname != null">
+        #{skuname,jdbcType=VARCHAR},
+      </if>
+      <if test="skuprice != null">
+        #{skuprice,jdbcType=DOUBLE},
+      </if>
+      <if test="skudesc != null">
+        #{skudesc,jdbcType=VARCHAR},
+      </if>
+      <if test="skupicaddr != null">
+        #{skupicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="skutypeid != null">
+        #{skutypeid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_sku
+    <set>
+      <if test="record.skuid != null">
+        skuid = #{record.skuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuname != null">
+        skuname = #{record.skuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuprice != null">
+        skuprice = #{record.skuprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.skudesc != null">
+        skudesc = #{record.skudesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skupicaddr != null">
+        skupicaddr = #{record.skupicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skutypeid != null">
+        skutypeid = #{record.skutypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_sku
+    set skuid = #{record.skuid,jdbcType=INTEGER},
+      skuname = #{record.skuname,jdbcType=VARCHAR},
+      skuprice = #{record.skuprice,jdbcType=DOUBLE},
+      skudesc = #{record.skudesc,jdbcType=VARCHAR},
+      skupicaddr = #{record.skupicaddr,jdbcType=VARCHAR},
+      skutypeid = #{record.skutypeid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worldunion.prophesy.model.sku.Sku">
+    update t_sku
+    <set>
+      <if test="skuname != null">
+        skuname = #{skuname,jdbcType=VARCHAR},
+      </if>
+      <if test="skuprice != null">
+        skuprice = #{skuprice,jdbcType=DOUBLE},
+      </if>
+      <if test="skudesc != null">
+        skudesc = #{skudesc,jdbcType=VARCHAR},
+      </if>
+      <if test="skupicaddr != null">
+        skupicaddr = #{skupicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="skutypeid != null">
+        skutypeid = #{skutypeid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where skuid = #{skuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worldunion.prophesy.model.sku.Sku">
+    update t_sku
+    set skuname = #{skuname,jdbcType=VARCHAR},
+      skuprice = #{skuprice,jdbcType=DOUBLE},
+      skudesc = #{skudesc,jdbcType=VARCHAR},
+      skupicaddr = #{skupicaddr,jdbcType=VARCHAR},
+      skutypeid = #{skutypeid,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR}
+    where skuid = #{skuid,jdbcType=INTEGER}
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+  <select id="queryAllSkuList" parameterType="java.lang.Integer" resultMap="BaseResultMapWithOther">
+  select b.skuid,b.skuname,b.skuprice,b.skudesc,b.skupicaddr,b.skutypeid,
+b. status,a.promotionTag,a.skumaxnum,a.skuSurplusnum,a.skutotalnum,
+a.status onstatus from t_sku_online_staus a,t_sku b where  a.skuid=b.skuid  
+and b.skutypeid=#{skuTypeId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

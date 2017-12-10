@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.ActivityDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.sku.Activity">
+    <id column="activityid" jdbcType="INTEGER" property="activityid" />
+    <result column="activitytypeid" jdbcType="INTEGER" property="activitytypeid" />
+    <result column="activitytitle" jdbcType="VARCHAR" property="activitytitle" />
+    <result column="picaddr" jdbcType="VARCHAR" property="picaddr" />
+    <result column="activityaddr" jdbcType="VARCHAR" property="activityaddr" />
+    <result column="createdate" jdbcType="DATE" property="createdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    activityid, activitytypeid, activitytitle, picaddr, activityaddr, createdate
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity
+    where activityid = #{activityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_activity
+    where activityid = #{activityid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.worldunion.prophesy.model.sku.Activity">
+    insert into t_activity (activityid, activitytypeid, activitytitle, 
+      picaddr, activityaddr, createdate
+      )
+    values (#{activityid,jdbcType=INTEGER}, #{activitytypeid,jdbcType=INTEGER}, #{activitytitle,jdbcType=VARCHAR}, 
+      #{picaddr,jdbcType=VARCHAR}, #{activityaddr,jdbcType=VARCHAR}, #{createdate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.worldunion.prophesy.model.sku.Activity">
+    insert into t_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityid != null">
+        activityid,
+      </if>
+      <if test="activitytypeid != null">
+        activitytypeid,
+      </if>
+      <if test="activitytitle != null">
+        activitytitle,
+      </if>
+      <if test="picaddr != null">
+        picaddr,
+      </if>
+      <if test="activityaddr != null">
+        activityaddr,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="activitytypeid != null">
+        #{activitytypeid,jdbcType=INTEGER},
+      </if>
+      <if test="activitytitle != null">
+        #{activitytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picaddr != null">
+        #{picaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="activityaddr != null">
+        #{activityaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_activity
+    <set>
+      <if test="record.activityid != null">
+        activityid = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activitytypeid != null">
+        activitytypeid = #{record.activitytypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activitytitle != null">
+        activitytitle = #{record.activitytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picaddr != null">
+        picaddr = #{record.picaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityaddr != null">
+        activityaddr = #{record.activityaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createdate = #{record.createdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_activity
+    set activityid = #{record.activityid,jdbcType=INTEGER},
+      activitytypeid = #{record.activitytypeid,jdbcType=INTEGER},
+      activitytitle = #{record.activitytitle,jdbcType=VARCHAR},
+      picaddr = #{record.picaddr,jdbcType=VARCHAR},
+      activityaddr = #{record.activityaddr,jdbcType=VARCHAR},
+      createdate = #{record.createdate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worldunion.prophesy.model.sku.Activity">
+    update t_activity
+    <set>
+      <if test="activitytypeid != null">
+        activitytypeid = #{activitytypeid,jdbcType=INTEGER},
+      </if>
+      <if test="activitytitle != null">
+        activitytitle = #{activitytitle,jdbcType=VARCHAR},
+      </if>
+      <if test="picaddr != null">
+        picaddr = #{picaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="activityaddr != null">
+        activityaddr = #{activityaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=DATE},
+      </if>
+    </set>
+    where activityid = #{activityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worldunion.prophesy.model.sku.Activity">
+    update t_activity
+    set activitytypeid = #{activitytypeid,jdbcType=INTEGER},
+      activitytitle = #{activitytitle,jdbcType=VARCHAR},
+      picaddr = #{picaddr,jdbcType=VARCHAR},
+      activityaddr = #{activityaddr,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=DATE}
+    where activityid = #{activityid,jdbcType=INTEGER}
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+</mapper>

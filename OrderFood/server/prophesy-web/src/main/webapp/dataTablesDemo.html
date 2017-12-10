@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<!--第一步：引入Javascript / CSS （CDN）-->
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+
+<body>
+
+<!--第二步：添加如下 HTML 代码-->
+<table id="table_id_example" class="display">
+    <thead>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>项目</th>
+        <th>月份</th>
+        <th>收入</th>
+        <th>底租</th>
+        <th>运营费用</th>
+        <th>EBITDA</th>
+        <th>EBITDA环比</th>
+        <th>EBITDA同比</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>人和A栋</td>
+        <td>201706</td>
+        <td>1725545</td>
+        <td>1725545</td>
+        <td>1725545</td>
+        <td>10%</td>
+        <td>10%</td>
+        <td>10%</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>人和A栋</td>
+        <td>201706</td>
+        <td>1725545</td>
+        <td>1725545</td>
+        <td>1725545</td>
+        <td>10%</td>
+        <td>10%</td>
+        <td>10%</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+
+<script>
+
+    <!--第三步 初始化Datatables-->
+    $(document).ready( function () {
+        $('#table_id_example').DataTable();
+    } );
+
+</script>
+
+</html>
