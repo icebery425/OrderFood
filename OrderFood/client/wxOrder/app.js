@@ -34,6 +34,28 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+      wxCode: '',
+
+      /**
+       * 微信用户信息
+       * gender 性别 0：未知、1：男、2：女
+       */
+      wxUserInfo: {
+        nickName: null,
+        avatarUrl: null,
+        gender: 0,
+      },
+      /**
+       * 登录用户信息
+       * sex 0 未知   1男  2女
+       */
+      loginUserInfo: {
+        token: null,
+        id: 0,
+        name: null,
+        avatar: null,
+        sex: 0,
+      },
   }
 })
