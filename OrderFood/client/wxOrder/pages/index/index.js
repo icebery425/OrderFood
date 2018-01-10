@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var network = require('../../common/netWork.js')
 
 Page({
   data: {
@@ -54,7 +55,14 @@ Page({
       })
     }
 
+    var requestType = 0;
+    var url = "https://www.tianqingjia.com/prophesy-web/api/order/queryBillinglist";
+    var params = {
+    };
+    var success = null;
+    var fail = null;
     
+    network.request(requestType, url, params, success, fail);
 
   },
   getUserInfo: function(e) {

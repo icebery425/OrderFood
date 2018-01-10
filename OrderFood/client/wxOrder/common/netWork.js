@@ -11,7 +11,7 @@ var hasReload = false;
 function request(requestType, url, paramsData, success, fail) {
 
   var timestamp = Date.parse(new Date());
-  paramsData._timestamp = timestamp;
+  ////paramsData._timestamp = timestamp;
 
   wx.showNavigationBarLoading();
   var tempToken = getApp().globalData.loginUserInfo.token;
