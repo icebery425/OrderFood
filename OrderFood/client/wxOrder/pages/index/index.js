@@ -56,15 +56,41 @@ Page({
     }
 
     var requestType = 0;
-    var url = "https://www.tianqingjia.com/prophesy-web/api/order/queryBillinglist";
+    //var url = "https://www.tianqingjia.com/api/order/queryBillinglist?pageIndex=1&pageSize=1";
+    var url = "https://www.tianqingjia.com/api/login/login"
     var params = {
+      code:"123455"
     };
     var success = null;
     var fail = null;
     
-    network.request(requestType, url, params, success, fail);
+    //network.request(requestType, url, params, success, fail);
+
+    this.getUserCode();
+
 
   },
+
+
+getUserCode:function(e){
+  wx.login({
+    success: function (res) {
+      if (res.code) {
+        //发起网络请求
+        wx.request({
+          url: 'https://www.tianqingjia.com/api/login/login',
+          data: {
+            code: res.code
+          }
+        })
+      } else {
+        console.log('获取用户登录态失败！' + res.errMsg)
+      }
+    }
+  });
+},
+
+
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
