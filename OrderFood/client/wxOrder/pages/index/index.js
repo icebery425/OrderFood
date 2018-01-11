@@ -6,6 +6,8 @@ var network = require('../../common/netWork.js')
 Page({
   data: {
     motto: 'Hello World',
+    wxcode: "",
+    openid: "",
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -55,17 +57,7 @@ Page({
       })
     }
 
-    var requestType = 0;
-    //var url = "https://www.tianqingjia.com/api/order/queryBillinglist?pageIndex=1&pageSize=1";
-    var url = "https://www.tianqingjia.com/api/login/login"
-    var params = {
-      code:"123455"
-    };
-    var success = null;
-    var fail = null;
     
-    //network.request(requestType, url, params, success, fail);
-
     this.getUserCode();
 
 
@@ -73,21 +65,75 @@ Page({
 
 
 getUserCode:function(e){
+  var _that = this;
   wx.login({
     success: function (res) {
       if (res.code) {
         //发起网络请求
-        wx.request({
-          url: 'https://www.tianqingjia.com/api/login/login',
-          data: {
-            code: res.code
-          }
-        })
+        //wx.request({
+        //  url: 'https://www.tianqingjia.com/api/login/login',
+        //  data: {
+        //    code: res.code
+        //  }
+        //})
+        _that.data.wxcode = res.code;
+        _that.userLogin();
       } else {
         console.log('获取用户登录态失败！' + res.errMsg)
       }
     }
   });
+},
+
+userLogin:function(){
+  var _that = this;
+  var requestType = 0;
+  //var url = "https://www.tianqingjia.com/api/order/queryBillinglist?pageIndex=1&pageSize=1";
+  var url = "https://www.tianqingjia.com/api/login/login" + "?code=" + _that.data.wxcode;
+  var params = {
+    //code: _that.data.wxcode,
+  };
+  var success = null;
+  var fail = null;
+
+  network.request(requestType, url, params, 
+    function (res) {
+      if (res.data != undefined && res.data.info != undefined && res.status) {
+        console.log('userLogin request result: ', res)
+        _that.data.openid = res.data.info.openId;
+      }
+    },
+    function () {
+      // toast.showToast('----');
+      console.log('userLogin request failed')
+    });
+
+},
+
+doOrder:function(e){
+  var _that = this;
+  var requestType = 1;
+  //var url = "https://www.tianqingjia.com/api/order/queryBillinglist?pageIndex=1&pageSize=1";
+  var url = "https://www.tianqingjia.com/api/order/neworder"
+  var params = {
+    deliveryType: 200,
+    deliveryTime: "2018-1-13 12:30:30",
+    totalAmount: 30.00,
+    discountAmount: 2.00,
+    freightAmount: 5.00,
+    receivableAmount:33.00,
+    msg: "test user msg",
+    desc: "test user desc",
+    supervisor: "张三",
+    supervisorPhone: "15195998895",
+    address: "深圳市南山区科技园万德莱南座401C",
+    openid: _that.data.openid,
+    Items: "[{skuId: 1,quantity:20},{skuId:2,quantity:3}]"
+  };
+  var success = null;
+  var fail = null;
+
+  network.request(requestType, url, params, success, fail);
 },
 
 
@@ -117,9 +163,10 @@ getUserCode:function(e){
 
 
   mineMessages:function(e){
-    wx.navigateTo({
-      url: '/pages/message/message'
-    })
+    this.doOrder();
+    //wx.navigateTo({
+    //  url: '/pages/message/message'
+    //})
   },
 
   mineCoupons:function(e){

@@ -13,8 +13,9 @@ function request(requestType, url, paramsData, success, fail) {
   var timestamp = Date.parse(new Date());
   ////paramsData._timestamp = timestamp;
 
-  wx.showNavigationBarLoading();
-  var tempToken = getApp().globalData.loginUserInfo.token;
+  //wx.showNavigationBarLoading();
+  //var tempToken = getApp().globalData.loginUserInfo.token;
+  var tempToken = "12345678";
   console.log("token: " + tempToken);
   wx.request({
 
@@ -27,19 +28,13 @@ function request(requestType, url, paramsData, success, fail) {
       'token': tempToken,
     },
     success: function (res) {
-      wx.hideNavigationBarLoading();
+      //wx.hideNavigationBarLoading();
       console.log("wx.request success res: ", res);
       console.log("wx.request success res.statusCode: ",res.statusCode);
       if (res.statusCode == 200) {
         if (!res.data.status) {
           return typeof fail == "function" && fail(res.data.error);
         } else {
-          // if (res.data.data && res.data.data && res.data.data.info && res.data.data.info.msg == '用户未注册'){
-          //   wx.redirectTo({
-          //     url: '/pages/usecar/registration/register',
-          //   });
-          //   return;
-          // }
           return typeof success == "function" && success(res.data);
         }
       } else if (res.statusCode == 401) {
