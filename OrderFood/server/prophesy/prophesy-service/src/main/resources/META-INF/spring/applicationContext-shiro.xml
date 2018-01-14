@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+	<bean id="jdbcAuthenticationRealm" class="com.worldunion.prophesy.service.security.JdbcAuthenticationRealm">
+		<property name="name" value="jdbcAuthentication" />
+		
+		<property name="defaultPermissionString" value="security:change-password,security:index,security:profile" />
+		<!--
+		<property name="authorizationCacheName" value="shiroAuthorizationCache" />
+		<property name="authenticationCachingEnabled" value="false" />
+		<property name="authenticationCacheName" value="shiroAuthenticationCache" />
+		-->
+		<property name="authenticationCachingEnabled" value="false"/>
+        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authorizationCachingEnabled" value="false"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+	</bean>
+
+
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="sessionManager" ref="sessionManager"/>
+		<property name="realm" ref="jdbcAuthenticationRealm"/>
+		<property name="cacheManager" ref="shiroCacheManager"/>
+	</bean>
+
+	<bean id="sessionManager"
+		  class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="3600000" />
+		<property name="sessionDAO" ref="shiroSessionDao" />
+		<property name="sessionIdCookie" ref="sharesession" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+	</bean>
+	
+	<bean id="sharesession" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg name="name" value="SHAREJSESSIONID" />
+		<property name="path" value="/" />
+	</bean>
+	
+	<!-- 
+	<bean id="shiroCacheManager" class="com.worldunion.bi.service.shiro.ShiroRedisCacheManager">
+			<property name="cached" ref="redisCacheService" />
+	</bean>
+	-->
+	
+	<bean id="shiroCacheManager" class="com.worldunion.prophesy.service.shiro.ShiroEhcacheManager">
+		<property name="cacheManager" ref="springCacheManager"/>
+	</bean>
+
+	
+	<bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"/>
+    </bean>
+
+    <!-- ehcache -->
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:META-INF/ehcache/ehcache.xml"/>
+        <property name="shared" value="true"/>
+    </bean>
+
+	<bean id="shiroSessionDao"
+		  class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO" />
+	<bean id="chainDefinitionSectionMetaSource" class="com.worldunion.prophesy.service.security.ChainDefinitionSectionMetaSource">
+		<property name="filterChainDefinitions">
+			<value>
+				/f6/**=anon
+				/account/**=authc
+				/build/**=authc
+				/base/**=authc
+				/get-captcha/**=anon
+				/login = captchaAuthc
+				/logout = logout
+				/index = perms[security:index]
+				/page/** = authc
+				/biweb/** = authc
+			</value>
+		</property>
+	</bean>
+	<bean id="captchaAuthenticationFilter" class="com.worldunion.prophesy.service.security.CaptchaAuthenticationFilter"></bean>
+	<!--<bean id="userSessionInvalidAuthenticationFilter" class="com.worldunion.bi.service.security.UserSessionInvalidAuthenticationFilter"></bean>-->
+	<bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="filters">
+			<map>
+				<entry key="captchaAuthc" value-ref="captchaAuthenticationFilter" />
+				<!--<entry key="authc" value-ref="userSessionInvalidAuthenticationFilter" />-->
+			</map>
+		</property>
+    	<property name="securityManager" ref="securityManager" />
+	    <property name="loginUrl" value="/login" />
+	    <property name="successUrl" value="/index" />
+	    <property name="unauthorizedUrl" value="/unauthorized" />
+	    <property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource" />
+	</bean>
+</beans>

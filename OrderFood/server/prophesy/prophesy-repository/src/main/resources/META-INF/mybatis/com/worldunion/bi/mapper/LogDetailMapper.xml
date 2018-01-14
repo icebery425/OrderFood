@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.LogDetailDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.LogDetail">
+    <id column="LOGDETAILID" jdbcType="DECIMAL" property="logdetailid" />
+    <result column="LOGID" jdbcType="DECIMAL" property="logid" />
+    <result column="ADDTIME" jdbcType="DATE" property="addtime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TABLENAME" jdbcType="VARCHAR" property="tablename" />
+    <result column="DATAID" jdbcType="DECIMAL" property="dataid" />
+    <result column="NOWVALUE" jdbcType="VARCHAR" property="nowvalue" />
+    <result column="ORIGINALVALUE" jdbcType="VARCHAR" property="originalvalue" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    LOGDETAILID, LOGID, ADDTIME, REMARK, TABLENAME, DATAID, NOWVALUE, ORIGINALVALUE
+  </sql>
+  
+  <insert id="addDetail" parameterType="com.worldunion.prophesy.model.LogDetail">
+    insert into TSM_LOG_DETAIL (LOGDETAILID, LOGID, ADDTIME, 
+      REMARK, TABLENAME, DATAID, 
+      NOWVALUE, ORIGINALVALUE)
+    values (SEQ_LOGDETAILID.NEXTVAL, #{logid,jdbcType=DECIMAL}, sysdate, 
+      #{remark,jdbcType=VARCHAR}, #{tablename,jdbcType=VARCHAR}, #{dataid,jdbcType=DECIMAL}, 
+      #{nowvalue,jdbcType=VARCHAR}, #{originalvalue,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="addDetailSelective" parameterType="com.worldunion.prophesy.model.LogDetail">
+    insert into TSM_LOG_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        LOGDETAILID,
+      <if test="logid != null">
+        LOGID,
+      </if>
+        ADDTIME,
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="tablename != null">
+        TABLENAME,
+      </if>
+      <if test="dataid != null">
+        DATAID,
+      </if>
+      <if test="nowvalue != null">
+        NOWVALUE,
+      </if>
+      <if test="originalvalue != null">
+        ORIGINALVALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      SEQ_LOGDETAILID.NEXTVAL,
+      <if test="logid != null">
+        #{logid,jdbcType=DECIMAL},
+      </if>
+      sysdate,
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null">
+        #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="dataid != null">
+        #{dataid,jdbcType=DECIMAL},
+      </if>
+      <if test="nowvalue != null">
+        #{nowvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="originalvalue != null">
+        #{originalvalue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  
+</mapper>

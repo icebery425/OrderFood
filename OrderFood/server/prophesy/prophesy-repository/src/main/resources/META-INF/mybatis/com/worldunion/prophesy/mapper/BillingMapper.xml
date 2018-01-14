@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.worldunion.prophesy.dao.BillingDao">
+  <resultMap id="BaseResultMap" type="com.worldunion.prophesy.model.sku.Billing">
+    <id column="billid" jdbcType="INTEGER" property="billid" />
+    <result column="billcode" jdbcType="VARCHAR" property="billcode" />
+    <result column="totalprice" jdbcType="DOUBLE" property="totalprice" />
+    <result column="custmessage" jdbcType="VARCHAR" property="custmessage" />
+    <result column="sengtype" jdbcType="CHAR" property="sengtype" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="Contactway" jdbcType="VARCHAR" property="contactway" />
+    <result column="Shippingaddress" jdbcType="VARCHAR" property="shippingaddress" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="paystatus" jdbcType="CHAR" property="paystatus" />
+    <result column="paytype" jdbcType="CHAR" property="paytype" />
+    <result column="contactname" jdbcType="VARCHAR" property="contactname" />
+    <result column="Shippingdate" jdbcType="DATE" property="shippingdate" />
+    <result column="createdate" jdbcType="DATE" property="createdate" />
+    <result column="freightAmount" jdbcType="DOUBLE" property="freightAmount" />
+    <result column="discountAmount" jdbcType="DOUBLE" property="discountAmount" />
+    <result column="paidAmount" jdbcType="DOUBLE" property="paidAmount" />
+  </resultMap>
+  <resultMap type="com.worldunion.prophesy.model.sku.Billing" extends="BaseResultMap" id="BaseResultMapWithOther">
+		<result column="WeChatnickname" jdbcType="VARCHAR" property="WeChatnickname" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<collection property="items" ofType="com.worldunion.prophesy.model.sku.Sku">  
+            <id column="skuid" property="skuid"/>  
+            <result column="skuname" property="skuname"/>  
+            <result column="skuprice" property="skuprice"/>  
+            <result column="skuamount" property="skuamount"/>  
+            <result column="skudesc" property="skudesc"/>  
+            <result column="skupicaddr" property="skupicaddr"/>  
+            <result column="skutypeid" property="skutypeid"/>  
+            <result column="status" property="status"/>  
+            <result column="skunum" property="skunum"/>  
+        </collection>  
+	</resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    billid, billcode, totalprice, custmessage, sengtype, userid, Contactway, Shippingaddress, 
+    status, paystatus, paytype, contactname, Shippingdate, createdate
+  </sql>
+ 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_billing
+    where billid = #{billid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_billing
+    where billid = #{billid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.worldunion.prophesy.model.sku.Billing">
+    insert into t_billing (billid, billcode, totalprice, 
+      custmessage, sengtype, userid, 
+      Contactway, Shippingaddress, status, 
+      paystatus, paytype, contactname, 
+      Shippingdate, createdate)
+    values (#{billid,jdbcType=INTEGER}, #{billcode,jdbcType=VARCHAR}, #{totalprice,jdbcType=DOUBLE}, 
+      #{custmessage,jdbcType=VARCHAR}, #{sengtype,jdbcType=CHAR}, #{userid,jdbcType=INTEGER}, 
+      #{contactway,jdbcType=VARCHAR}, #{shippingaddress,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{paystatus,jdbcType=CHAR}, #{paytype,jdbcType=CHAR}, #{contactname,jdbcType=VARCHAR}, 
+      #{shippingdate,jdbcType=DATE}, #{createdate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.worldunion.prophesy.model.sku.Billing">
+    insert into t_billing
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="billid != null">
+        billid,
+      </if>
+      <if test="billcode != null">
+        billcode,
+      </if>
+      <if test="totalprice != null">
+        totalprice,
+      </if>
+      <if test="custmessage != null">
+        custmessage,
+      </if>
+      <if test="sengtype != null">
+        sengtype,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="contactway != null">
+        Contactway,
+      </if>
+      <if test="shippingaddress != null">
+        Shippingaddress,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="paystatus != null">
+        paystatus,
+      </if>
+      <if test="paytype != null">
+        paytype,
+      </if>
+      <if test="contactname != null">
+        contactname,
+      </if>
+      <if test="shippingdate != null">
+        Shippingdate,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="billid != null">
+        #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="billcode != null">
+        #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="custmessage != null">
+        #{custmessage,jdbcType=VARCHAR},
+      </if>
+      <if test="sengtype != null">
+        #{sengtype,jdbcType=CHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="contactway != null">
+        #{contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddress != null">
+        #{shippingaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="paystatus != null">
+        #{paystatus,jdbcType=CHAR},
+      </if>
+      <if test="paytype != null">
+        #{paytype,jdbcType=CHAR},
+      </if>
+      <if test="contactname != null">
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingdate != null">
+        #{shippingdate,jdbcType=DATE},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_billing
+    <set>
+      <if test="record.billid != null">
+        billid = #{record.billid,jdbcType=INTEGER},
+      </if>
+      <if test="record.billcode != null">
+        billcode = #{record.billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalprice != null">
+        totalprice = #{record.totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.custmessage != null">
+        custmessage = #{record.custmessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sengtype != null">
+        sengtype = #{record.sengtype,jdbcType=CHAR},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactway != null">
+        Contactway = #{record.contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingaddress != null">
+        Shippingaddress = #{record.shippingaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.paystatus != null">
+        paystatus = #{record.paystatus,jdbcType=CHAR},
+      </if>
+      <if test="record.paytype != null">
+        paytype = #{record.paytype,jdbcType=CHAR},
+      </if>
+      <if test="record.contactname != null">
+        contactname = #{record.contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingdate != null">
+        Shippingdate = #{record.shippingdate,jdbcType=DATE},
+      </if>
+      <if test="record.createdate != null">
+        createdate = #{record.createdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_billing
+    set billid = #{record.billid,jdbcType=INTEGER},
+      billcode = #{record.billcode,jdbcType=VARCHAR},
+      totalprice = #{record.totalprice,jdbcType=DOUBLE},
+      custmessage = #{record.custmessage,jdbcType=VARCHAR},
+      sengtype = #{record.sengtype,jdbcType=CHAR},
+      userid = #{record.userid,jdbcType=INTEGER},
+      Contactway = #{record.contactway,jdbcType=VARCHAR},
+      Shippingaddress = #{record.shippingaddress,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=CHAR},
+      paystatus = #{record.paystatus,jdbcType=CHAR},
+      paytype = #{record.paytype,jdbcType=CHAR},
+      contactname = #{record.contactname,jdbcType=VARCHAR},
+      Shippingdate = #{record.shippingdate,jdbcType=DATE},
+      createdate = #{record.createdate,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.worldunion.prophesy.model.sku.Billing">
+    update t_billing
+    <set>
+      <if test="billcode != null">
+        billcode = #{billcode,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null">
+        totalprice = #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="custmessage != null">
+        custmessage = #{custmessage,jdbcType=VARCHAR},
+      </if>
+      <if test="sengtype != null">
+        sengtype = #{sengtype,jdbcType=CHAR},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="contactway != null">
+        Contactway = #{contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingaddress != null">
+        Shippingaddress = #{shippingaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="paystatus != null">
+        paystatus = #{paystatus,jdbcType=CHAR},
+      </if>
+      <if test="paytype != null">
+        paytype = #{paytype,jdbcType=CHAR},
+      </if>
+      <if test="contactname != null">
+        contactname = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingdate != null">
+        Shippingdate = #{shippingdate,jdbcType=DATE},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=DATE},
+      </if>
+    </set>
+    where billid = #{billid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.worldunion.prophesy.model.sku.Billing">
+    update t_billing
+    set billcode = #{billcode,jdbcType=VARCHAR},
+      totalprice = #{totalprice,jdbcType=DOUBLE},
+      custmessage = #{custmessage,jdbcType=VARCHAR},
+      sengtype = #{sengtype,jdbcType=CHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      Contactway = #{contactway,jdbcType=VARCHAR},
+      Shippingaddress = #{shippingaddress,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      paystatus = #{paystatus,jdbcType=CHAR},
+      paytype = #{paytype,jdbcType=CHAR},
+      contactname = #{contactname,jdbcType=VARCHAR},
+      Shippingdate = #{shippingdate,jdbcType=DATE},
+      createdate = #{createdate,jdbcType=DATE}
+    where billid = #{billid,jdbcType=INTEGER}
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_ ) where rownum_ > #{page.begin} and rownum_ <= #{page.end} ]]>
+    </if>
+  </sql>
+  <select id="selectBillingByid" parameterType="java.lang.Integer" resultMap="BaseResultMapWithOther">
+   select a.billid,a.billcode,u.userid,u.WeChatnickname,u.mobile,a.Shippingaddress,a.status,
+a.sengtype,a.custmessage,a.totalprice,a.freightAmount,a.discountAmount,a.paidAmount ,s.skuid,s.skuname,s.skuprice,s.skudesc,s.skupicaddr,s.skutypeid,s.status,bs.skunum,bs.skuamount
+from t_billing a,t_user u,t_bill_sku bs,t_sku s where a.userid=u.userid  and bs.billid =a.billid and bs.skuid=s.skuid
+   and a.billid = #{id,jdbcType=INTEGER}
+  </select>
+   <select id="selectBillingList" parameterType="map" resultMap="BaseResultMapWithOther">
+   select a.billid,a.billcode,u.userid,u.WeChatnickname,u.mobile,a.Shippingaddress,a.status,
+a.sengtype,a.custmessage,a.totalprice,a.freightAmount,a.discountAmount,a.paidAmount ,s.skuid,s.skuname,s.skuprice,s.skudesc,s.skupicaddr,s.skutypeid,s.status,bs.skunum,bs.skuamount
+from (select * from t_billing 
+	<if test="pageIndex != null and pageIndex !='' and pageSize != null and pageSize !='' "> limit  #{start},#{end}</if>
+	) a,
+	t_user u,t_bill_sku bs,t_sku s where a.userid=u.userid  and bs.billid =a.billid and bs.skuid=s.skuid
+   <if test="status != null and status !='' "> and a.status=#{status}</if>
+    <if test="keyword != null and keyword !='' "> and a.billcode  LIKE '%' || #{keyword} || '%'</if>
+   
+  
+  </select>
+  <update id="updateBillingByParam" parameterType="map">
+   update  t_billing  SET status = #{status} WHERE  billid =#{orderId}
+  </update>
+  <insert id="insertBillingInfo" parameterType="map" useGeneratedKeys="true" keyProperty="billid">
+    insert into t_billing(contactname,Contactway,custmessage,totalprice,
+    userid,Shippingdate,
+    sengtype,Shippingaddress,discountAmount,freightAmount,receivableAmount,remark,paystatus)
+    select (#{supervisor},#{supervisorPhone},#{msg},#{totalAmount},
+    (select userid from t_user u where u.openid=#{openid}),#{deliveryTime},
+    #{sengtype},#{address},#{discountAmount},#{freightAmount},#{receivableAmount},#{remark} ,'0'  )
+    from dual
+  </insert>
+  
+   <insert id ="insertBillSkuInfo" parameterType="java.util.List" >
+           
+             insert into t_bill_sku
+            (billid, skuid, skunum)
+             values
+             <foreach collection ="list" item="reddemCode" index= "index" separator =",">
+                 (
+                 #{reddemCode.billid}, #{reddemCode.skuid},
+                 #{reddemCode.quantity}
+                 )
+             </foreach >
+      </insert >
+</mapper>

@@ -1,0 +1,14 @@
+
+.table.dataTable{
+	display:table;
+	height:auto;
+	overflow-x:auto;
+	position:relative;
+	background: #fff;
+}
+
+
+.table.dataTable tr{
+    height:25px;
+}
+

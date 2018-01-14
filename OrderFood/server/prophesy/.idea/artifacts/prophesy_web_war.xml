@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="prophesy-web:war">
+    <output-path>$PROJECT_DIR$/prophesy-web/target</output-path>
+    <root id="archive" name="prophesy-web.war">
+      <element id="artifact" artifact-name="prophesy-web:war exploded" />
+    </root>
+  </artifact>
+</component>
