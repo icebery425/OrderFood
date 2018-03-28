@@ -32,8 +32,8 @@ function request(requestType, url, paramsData, success, fail) {
       console.log("wx.request success res: ", res);
       console.log("wx.request success res.statusCode: ",res.statusCode);
       if (res.statusCode == 200) {
-        if (!res.data.status) {
-          return typeof fail == "function" && fail(res.data.error);
+        if (res.data.status) {
+          return typeof fail == "function" && fail(res.errMsg);
         } else {
           return typeof success == "function" && success(res.data);
         }

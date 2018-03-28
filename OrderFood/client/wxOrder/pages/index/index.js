@@ -98,9 +98,9 @@ userLogin:function(){
 
   network.request(requestType, url, params, 
     function (res) {
-      if (res.data != undefined && res.data.info != undefined && res.status) {
+      if (res.data != undefined && res.data != undefined && !res.status) {
         console.log('userLogin request result: ', res)
-        _that.data.openid = res.data.info.openId;
+        _that.data.openid = res.data.openId;
       }
     },
     function () {

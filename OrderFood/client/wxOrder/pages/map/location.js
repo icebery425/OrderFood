@@ -1,4 +1,8 @@
 // pages/map/location.js
+
+var latitude, longitude;
+
+
 Page({
 
   /**
@@ -58,7 +62,6 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-
     wx.getSystemInfo({
       success: function (res) {
         //设置map高度，根据当前设备宽高满屏显示
@@ -95,7 +98,33 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.mapCtx = wx.createMapContext('mymap')
+    this.mapCtx.getCenterLocation({
+      success: function (res) {
+        latitude = res.latitude;
+        longitude = res.longitude;
+      }
+    }) //获取当前地图的中心经纬度
+    this.mapCtx.includePoints({
+      padding: [10],
+      points: [{
+        latitude: latitude,
+        longitude: longitude
+      }]
+    })
+
+    this.mapCtx.translateMarker({
+      markerId: 0,
+      autoRotate: true,
+      duration: 1000,
+      destination: {
+        latitude: latitude,
+        longitude: longitude,
+      },
+      animationEnd() {
+        console.log('animation end')
+      }
+    })
   },
 
   /**
