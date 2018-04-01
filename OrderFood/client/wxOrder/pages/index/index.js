@@ -102,6 +102,7 @@ userLogin:function(){
       if (res.data != undefined && res.data != undefined && !res.status) {
         console.log('userLogin request result: ', res)
         _that.data.openid = res.data.openId;
+        getApp().globalData.appId = res.data.openId;
       }
     },
     function (res) {

@@ -26,6 +26,7 @@ Page({
     var _that = this;
     var requestType = 1;
     var url = "https://www.tianqingjia.com/api/order/submitOrder";
+    var openID = getApp().globalData.appId;
     var params = {
       deliveryType: '',
       deliveryTime:'',
@@ -37,7 +38,7 @@ Page({
       desc:'不放辣',
       supervisor:'余生',
       supervisorPhone:'15195998895',
-      openid:'',
+      openid: openID,
       address:'深圳市南山区科技园6路',
       items:[
         {skuid:1,quantity:5}
