@@ -11,10 +11,7 @@ var hasReload = false;
 function request(requestType, url, paramsData, success, fail) {
 
   var timestamp = Date.parse(new Date());
-  ////paramsData._timestamp = timestamp;
 
-  //wx.showNavigationBarLoading();
-  //var tempToken = getApp().globalData.loginUserInfo.token;
   var tempToken = "12345678";
   console.log("token: " + tempToken);
   wx.request({
@@ -24,13 +21,13 @@ function request(requestType, url, paramsData, success, fail) {
     method: requestType == 0 ? 'GET' : 'POST',
 
     header: {
-      'content-type': 'application/x-www-form-urlencoded',
+      //'content-type': 'application/x-www-form-urlencoded',
+      'content-type': 'application/json',
       'token': tempToken,
     },
     success: function (res) {
-      //wx.hideNavigationBarLoading();
       console.log("wx.request success res: ", res);
-      console.log("wx.request success res.statusCode: ",res.statusCode);
+
       if (res.statusCode == 200) {
         if (res.data.status) {
           return typeof fail == "function" && fail(res.errMsg);
