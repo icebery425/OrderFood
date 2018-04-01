@@ -77,6 +77,7 @@ getUserCode:function(e){
         //  }
         //})
         _that.data.wxcode = res.code;
+        console.log('wxcode = ' + res.code)
         _that.userLogin();
       } else {
         console.log('获取用户登录态失败！' + res.errMsg)
@@ -103,9 +104,9 @@ userLogin:function(){
         _that.data.openid = res.data.openId;
       }
     },
-    function () {
+    function (res) {
       // toast.showToast('----');
-      console.log('userLogin request failed')
+      console.log('userLogin request failed:' + res)
     });
 
 },

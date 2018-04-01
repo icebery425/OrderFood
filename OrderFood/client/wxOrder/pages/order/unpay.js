@@ -1,3 +1,4 @@
+var network = require('../../common/netWork.js')
 Page({
   data: {
     orderItems:[
@@ -13,9 +14,50 @@ Page({
   },
 
   orderCommit: function () {
-    wx.navigateTo({
-      url: '/pages/index/index'
-    })
+    this.doOrder();
+    //wx.navigateTo({
+    //  url: '/pages/index/index'
+    //})
 
   },
+
+
+  doOrder: function (typeId) {
+    var _that = this;
+    var requestType = 1;
+    var url = "https://www.tianqingjia.com/api/order/submitOrder";
+    var params = {
+      deliveryType: '',
+      deliveryTime:'',
+      totalAmount:20.00,
+      discountAmount:5.0,
+      freightAmount:0,
+      receivableAmount:0,
+      msg:'加急',
+      desc:'不放辣',
+      supervisor:'余生',
+      supervisorPhone:'15195998895',
+      openid:'',
+      address:'深圳市南山区科技园6路',
+      items:[
+        {skuid:1,quantity:5}
+      ]
+    };
+    var success = null;
+    var fail = null;
+
+    network.request(requestType, url, params,
+      function (res) {
+        if (res.data != undefined && res.data != undefined && !res.status) {
+          console.log('doOrder request result: ', res)
+          var list = res.data;
+          
+        }
+      },
+      function (res) {
+        // toast.showToast('----');
+        console.log('doOrder request failed: ' + res)
+      });
+
+  }
 })

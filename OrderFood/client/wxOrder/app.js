@@ -35,7 +35,8 @@ App({
   },
   globalData: {
     userInfo: null,
-      wxCode: '',
+    appId:'',
+    wxCode: '',
 
       /**
        * 微信用户信息

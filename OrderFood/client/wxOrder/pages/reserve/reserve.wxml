@@ -9,24 +9,24 @@
 
   <view class="body-sku">
     <view class="left-category">
-      <label wx:for="{{category}}" wx:key="unique" >
-          <view wx:if="{{item.name==selectName}}" class="left-item-on" data-pi="{{item}}" bindtap="categoryChoose">
-            <text class="hc-title">{{item.name}}</text>
+      <label wx:for="{{categoryList}}" wx:key="unique" >
+          <view wx:if="{{item.typename==selectName}}" class="left-item-on" data-pi="{{item}}" bindtap="categoryChoose">
+            <text class="hc-title">{{item.typename}}</text>
           </view>
           <view wx:else class="left-item-off" data-pi="{{item}}" bindtap="categoryChoose">
-            <text class="hc-title">{{item.name}}</text>
+            <text class="hc-title">{{item.typename}}</text>
           </view>
       </label>
     </view>
     <view class="right-sku">
-      <label wx:for="{{sku}}" wx:key="unique" >
+      <label wx:for="{{skuList}}" wx:key="unique" >
           <view class="right-item-on" data-pi="{{item}}" bindtap="serviceAddress">
               <image src="{{item.avatar}}" class="sku-avatar" mode="aspectFit"></image>
               <view class="item-sku-info">
-                <text class="item-name">{{item.name}}</text>
-                <text class="item-desc">{{item.desc}}</text>
+                <text class="item-name">{{item.skuname}}</text>
+                <text class="item-desc">{{item.skudesc}}</text>
                 <view class="item-bottom"> 
-                  <text class="item-price">¥{{item.price}}</text>
+                  <text class="item-price">¥{{item.skuprice}}</text>
                   <image src="{{reduceIcon}}" class="sku-reduce" mode="aspectFit"></image>
                   <text class="item-quantity">2</text>
                   <image src="{{addIcon}}" class="sku-add" mode="aspectFit"></image>
