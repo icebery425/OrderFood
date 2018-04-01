@@ -21,7 +21,7 @@ function request(requestType, url, paramsData, success, fail) {
 
     url: url,
     data: paramsData,
-    method: requestType == 0 ? 'get' : 'post',
+    method: requestType == 0 ? 'GET' : 'POST',
 
     header: {
       'content-type': 'application/x-www-form-urlencoded',
