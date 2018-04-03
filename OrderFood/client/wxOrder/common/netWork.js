@@ -14,17 +14,20 @@ function request(requestType, url, paramsData, success, fail) {
 
   var tempToken = "12345678";
   console.log("token: " + tempToken);
+  //      'token': tempToken,
+  var strdata = paramsData;
+  if (requestType != 0){
+    //strdata = json2Form(paramsData);
+  }
+
+  var dataValue = requestType == 0 ? paramsData : strdata;
+  var requestValue = requestType == 0 ? 'GET' : 'POST';
+  
   wx.request({
-
     url: url,
-    data: paramsData,
-    method: requestType == 0 ? 'GET' : 'POST',
-
-    header: {
-      //'content-type': 'application/x-www-form-urlencoded',
-      'content-type': 'application/json',
-      'token': tempToken,
-    },
+    data: dataValue,
+    header: { "content-type":"application/json"},
+    method: requestValue,
     success: function (res) {
       console.log("wx.request success res: ", res);
 
@@ -196,6 +199,14 @@ function upload(filename, fileurl, success, fail) {
 
   })
 };
+
+function json2Form(json) {
+  var str = [];
+  for (var p in json) {
+    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));
+  }
+  return str.join("&");
+} 
 
 
 
