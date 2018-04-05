@@ -21,7 +21,7 @@
     <view class="right-sku">
       <label wx:for="{{skuList}}" wx:key="unique" >
           <view class="right-item-on" data-pi="{{item}}" bindtap="serviceAddress">
-              <image src="{{item.avatar}}" class="sku-avatar" mode="aspectFit"></image>
+              <image src="{{item.skupicaddr}}" class="sku-avatar" mode="aspectFit"></image>
               <view class="item-sku-info">
                 <text class="item-name">{{item.skuname}}</text>
                 <text class="item-desc">{{item.skudesc}}</text>
