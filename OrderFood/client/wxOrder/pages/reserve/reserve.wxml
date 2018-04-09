@@ -20,16 +20,16 @@
     </view>
     <view class="right-sku">
       <label wx:for="{{skuList}}" wx:key="unique" >
-          <view class="right-item-on" data-pi="{{item}}" bindtap="serviceAddress">
+          <view class="right-item-on" data-pi="{{item}}" >
               <image src="{{item.skupicaddr}}" class="sku-avatar" mode="aspectFit"></image>
               <view class="item-sku-info">
                 <text class="item-name">{{item.skuname}}</text>
                 <text class="item-desc">{{item.skudesc}}</text>
                 <view class="item-bottom"> 
                   <text class="item-price">¥{{item.skuprice}}</text>
-                  <image src="{{reduceIcon}}" class="sku-reduce" mode="aspectFit"></image>
-                  <text class="item-quantity">2</text>
-                  <image src="{{addIcon}}" class="sku-add" mode="aspectFit"></image>
+                  <image src="{{reduceIcon}}" class="sku-reduce" mode="aspectFit" data-pi="{{item.skuid}}" bindtap="reduceOnclick"></image>
+                  <text class="item-quantity">0</text>
+                  <image src="{{addIcon}}" class="sku-add" mode="aspectFit" data-pi="{{item.skuid}}" bindtap="addOnclick"></image>
                 </view>
                 
               </view>

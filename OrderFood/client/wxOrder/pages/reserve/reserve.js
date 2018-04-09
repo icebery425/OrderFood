@@ -16,6 +16,7 @@ Page({
       ],
       categoryList:[],
       skuList:[],
+      orderitem:[],
       sku:[
         { "id": 1, "name": "叉烧饭", "avatar":"/images/img_chas.png", "price":12.00, "desc":"叉烧+精致小炒+时蔬+米饭" },
         { "id": 2, "name": "烧鸭饭", "avatar": "/images/img_jipai.png", "price": 13.00, "desc": "烧度+精致小炒+时蔬+米饭"},
@@ -125,5 +126,47 @@ Page({
          console.log('getSkuList request failed')
        });
 
+   },
+
+   addOnclick: function (event){
+     var _that = this;
+     var skuid = event.currentTarget.dataset.pi;
+     var len = _that.data.orderitem.length;
+     if (len <= 0){
+       _that.data.orderitem.push({ skuid: skuid, quantity:1});
+     }else{
+       var isFound = false;
+       for (var i = 0; i++; i < len){
+         var item = _that.data.orderitem[i];
+         if (item.skuid==skuid){
+           item.quantity++;
+           isFound = true;
+           break;
+         }
+       }
+       if (isFound){
+         _that.data.orderitem.push({ skuid: skuid, quantity: 1 });
+       }
+     }
+   },
+
+   reduceOnclick: function (event) {
+     var _that = this;
+     var skuid = event.currentTarget.dataset.pi;
+     var len = _that.data.orderitem.length;
+     if (len <= 0) {
+       return;
+     }
+
+    var isFound = false;
+    for (var i = 0; i++; i < len) {
+      var item = _that.data.orderitem[i];
+      if (item.skuid == skuid) {
+        item.quantity--;
+        isFound = true;
+        break;
+      }
+    }
+     
    }
 })
