@@ -37,6 +37,7 @@ Page({
       discountAmount: 5.0,
       freightAmount: 0,
       receivableAmount: 0,
+      storeId:1,
       msg: '加急',
       desc: '不放辣',
       supervisor: '余生',
