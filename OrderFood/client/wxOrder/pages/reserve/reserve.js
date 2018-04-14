@@ -6,7 +6,7 @@ Page({
       reduceIcon:"/images/dianc_list_ic_reduce.png",
       addIcon: "/images/dianc_list_ic_plus.png",
       cartIcon: "/images/ic_shop.png",
-      totalPrice: 120,
+      totalPrice: 0,
       selectName: "三荤一素",
       category:[
         { "id": 1, "name": "两荤一素"},
@@ -123,6 +123,7 @@ Page({
 
    addOnclick: function (event){
      var _that = this;
+     var _addPrice = 0;
      var skuid = event.currentTarget.dataset.pi;
      var len = _that.data.skuList.length;
      if (len <= 0){
@@ -134,9 +135,12 @@ Page({
            if (item.quantity == undefined) {
              item.quantity = 0;
            }
+
            item.quantity++;
+           _addPrice = (item.skuprice);
            this.setData({
-             skuList: _that.data.skuList
+             skuList: _that.data.skuList,
+             totalPrice: (_that.data.totalPrice + _addPrice)
            })
            break;
          }
@@ -153,6 +157,7 @@ Page({
        return;
      }
 
+    var reducePrice = 0;
     var isFound = false;
     for (var i = 0; i < len; i++) {
       var item = _that.data.skuList[i];
@@ -164,8 +169,10 @@ Page({
           break;
         }
         item.quantity--;
+        reducePrice = (item.skuprice);
         this.setData({
-          skuList: _that.data.skuList
+          skuList: _that.data.skuList,
+          totalPrice: (_that.data.totalPrice - reducePrice)
         })
         break;
       }

@@ -33,7 +33,8 @@ Page({
     }
 
     this.setData({
-      orderItems: tempitem
+      orderItems: tempitem,
+      totalPrice: _that.data.totalPrice
     })
 
   },
