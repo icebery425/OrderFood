@@ -49,13 +49,6 @@ Page({
      this.getSkuList(item.skutypeid);
    },
 
-   orderCommit:function(){
-     wx.navigateTo({
-       url: '/pages/order/unpay'
-     })
-
-   },
-
    chooseAddress:function(){
      wx.navigateTo({
        url: '/pages/map/location'
@@ -131,42 +124,65 @@ Page({
    addOnclick: function (event){
      var _that = this;
      var skuid = event.currentTarget.dataset.pi;
-     var len = _that.data.orderitem.length;
+     var len = _that.data.skuList.length;
      if (len <= 0){
-       _that.data.orderitem.push({ skuid: skuid, quantity:1});
+       return;
      }else{
-       var isFound = false;
-       for (var i = 0; i++; i < len){
-         var item = _that.data.orderitem[i];
+       for (var i = 0; i < len; i++){
+         var item = _that.data.skuList[i];
          if (item.skuid==skuid){
            item.quantity++;
-           isFound = true;
            break;
          }
        }
-       if (isFound){
-         _that.data.orderitem.push({ skuid: skuid, quantity: 1 });
-       }
+
      }
    },
 
    reduceOnclick: function (event) {
      var _that = this;
      var skuid = event.currentTarget.dataset.pi;
-     var len = _that.data.orderitem.length;
+     var len = _that.data.skuList.length;
      if (len <= 0) {
        return;
      }
 
     var isFound = false;
-    for (var i = 0; i++; i < len) {
-      var item = _that.data.orderitem[i];
+    for (var i = 0; i < len; i++) {
+      var item = _that.data.skuList[i];
       if (item.skuid == skuid) {
         item.quantity--;
-        isFound = true;
         break;
       }
     }
      
-   }
+   },
+
+
+  orderCommit: function () {
+     var _that = this;
+     var skulen = _that.data.skuList.length;
+     if (skulen <= 0){
+       reutrn;
+     }
+
+     var hasSku = false;
+     for (var i = 0; i++; i < len) {
+       var item = _that.data.skuList[i];
+       if (item.quantity > 0) {
+         hasSku = true;
+         that.orderitem.push({skuid: item.skuid, quantity:item.quantity});
+       }
+     }
+    if (!hasSku){
+      return;
+    }
+    
+     wx.navigateTo({
+       url: '/pages/order/unpay?item=' + orderitem,
+     })
+
+
+
+   },
 })

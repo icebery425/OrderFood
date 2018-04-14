@@ -28,7 +28,7 @@
                 <view class="item-bottom"> 
                   <text class="item-price">¥{{item.skuprice}}</text>
                   <image src="{{reduceIcon}}" class="sku-reduce" mode="aspectFit" data-pi="{{item.skuid}}" bindtap="reduceOnclick"></image>
-                  <text class="item-quantity">0</text>
+                  <text class="item-quantity">{{item.quantity>0?item.quantity:0}}</text>
                   <image src="{{addIcon}}" class="sku-add" mode="aspectFit" data-pi="{{item.skuid}}" bindtap="addOnclick"></image>
                 </view>
                 
