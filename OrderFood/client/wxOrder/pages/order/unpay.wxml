@@ -3,17 +3,17 @@
     <view class="head-info">
       <view class="head-item">
         <text class="head-hint">姓名：</text>
-        <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入您的姓名" />
+        <input bindinput="userNameInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="20" type="number" placeholder="请输入您的姓名" />
       </view>
 
       <view class="head-item">
         <text class="head-hint">联系方式：</text>
-        <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入您的联系方式" />
+        <input bindinput="userMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="20" type="number" placeholder="请输入您的联系方式" />
       </view>
 
       <view class="head-item">
         <text class="head-hint">送餐地址：</text>
-        <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入您的送餐地址" />
+        <input bindinput="userAddressInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="100" type="number" placeholder="请输入您的送餐地址" />
         <view class="arrow-right2">
           <image src="/images/ic_choose.png" class="right-image2"> </image>
         </view>
@@ -23,12 +23,12 @@
     <view class="right-sku">
       <label wx:for="{{orderItems}}" wx:key="unique" >
           <view class="right-item-on" data-pi="{{item}}" bindtap="serviceAddress">
-              <image src="{{item.avatar}}" class="sku-avatar" mode="aspectFit"></image>
+              <image src="{{item.skupicaddr}}" class="sku-avatar" mode="aspectFit"></image>
               <view class="item-sku-info">
-                <text class="item-name">{{item.name}}</text>
-                <text class="item-desc">{{item.desc}}</text>
+                <text class="item-name">{{item.skuname}}</text>
+                <text class="item-desc">{{item.skudesc}}</text>
                 <view class="item-bottom"> 
-                  <text class="item-price">¥{{item.price}}</text>
+                  <text class="item-price">¥{{item.skuprice}}</text>
                   <text class="item-quantity">x{{item.quantity}}</text>
                 </view>
               </view>
@@ -44,7 +44,7 @@
 
       <view class="head-item">
         <text class="head-hint">买家留言：</text>
-        <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入备注" />
+        <input bindinput="userMessageInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入备注" />
       </view>
 
       <view class="head-item">

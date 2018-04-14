@@ -131,7 +131,13 @@ Page({
        for (var i = 0; i < len; i++){
          var item = _that.data.skuList[i];
          if (item.skuid==skuid){
+           if (item.quantity == undefined) {
+             item.quantity = 0;
+           }
            item.quantity++;
+           this.setData({
+             skuList: _that.data.skuList
+           })
            break;
          }
        }
@@ -151,7 +157,16 @@ Page({
     for (var i = 0; i < len; i++) {
       var item = _that.data.skuList[i];
       if (item.skuid == skuid) {
+        if (item.quantity == undefined){
+          item.quantity = 0;
+        }
+        if (item.quantity <= 0){
+          break;
+        }
         item.quantity--;
+        this.setData({
+          skuList: _that.data.skuList
+        })
         break;
       }
     }
@@ -159,7 +174,7 @@ Page({
    },
 
 
-  orderCommit: function () {
+  orderCommitExt: function () {
      var _that = this;
      var skulen = _that.data.skuList.length;
      if (skulen <= 0){
@@ -167,22 +182,50 @@ Page({
      }
 
      var hasSku = false;
-     for (var i = 0; i++; i < len) {
+     for (var i = 0; i < skulen; i++) {
        var item = _that.data.skuList[i];
-       if (item.quantity > 0) {
+       if (item.quantity != undefined && item.quantity > 0) {
          hasSku = true;
-         that.orderitem.push({skuid: item.skuid, quantity:item.quantity});
+         _that.data.orderitem.push({skuid: item.skuid, quantity:item.quantity});
        }
      }
     if (!hasSku){
       return;
     }
     
+    console.log("items count: " + _that.data.orderitem.length);
+    var tempItem = _that.data.orderitem;
      wx.navigateTo({
-       url: '/pages/order/unpay?item=' + orderitem,
+       url: '/pages/order/unpay?items=' + tempItem,
      })
 
-
-
    },
+
+  orderCommit: function () {
+    var _that = this;
+    var skulen = _that.data.skuList.length;
+    if (skulen <= 0) {
+      reutrn;
+    }
+
+    var hasSku = false;
+    for (var i = 0; i < skulen; i++) {
+      var item = _that.data.skuList[i];
+      if (item.quantity != undefined && item.quantity > 0) {
+        hasSku = true;
+        _that.data.orderitem.push(item);
+      }
+    }
+    if (!hasSku) {
+      return;
+    }
+
+    console.log("items count: " + _that.data.orderitem.length);
+    let str = JSON.stringify(_that.data.orderitem);;
+    wx.navigateTo({
+      url: '/pages/order/unpay?items=' + str,
+    })
+
+
+  },
 })
