@@ -92,6 +92,7 @@
 
 .item-sku-info{
   display: flex;
+  margin: 0 0 0 4px;
   flex-direction: column;
   margin-left: 15rpx;
 }
@@ -118,6 +119,7 @@
 }
 
 .item-bottom{
+  width: fit-content;
   display: flex;
   flex-direction: row;
   margin-top: 28rpx;
@@ -129,22 +131,28 @@
 }
 
 .sku-reduce{
+  display: flex;
+  position: absolute;
+  right: 120rpx;
   width: 50rpx;
   height: 50rpx;
-  margin-left: 135rpx;
+  
 }
 
 .sku-add{
+  display: flex;
+  position: absolute;
+  right: 30rpx;
   width: 50rpx;
   height: 50rpx;
-  margin-left: 5rpx;
 }
 .item-quantity{
   display: flex;
+  position: absolute;
   font-size: 28rpx;
+  right: 95rpx;
   color: darkblue;
-  margin-left: 5rpx;
-  margin-right: 5rpx;
+  height: 50rpx;
   align-items: center;
   justify-content: center;
 }
