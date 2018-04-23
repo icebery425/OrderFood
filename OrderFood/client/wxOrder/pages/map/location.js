@@ -1,5 +1,6 @@
-// pages/map/location.js
+var QQMapWX = require('../../common/qqmap-wx-jssdk.js');
 
+var qqmapsdk;
 var latitude, longitude;
 
 
@@ -16,6 +17,7 @@ Page({
 
     Height: 0,
     scale: 13,
+    nowWhere:"",
     latitude: "",
     longitude: "",
     markers: [],
@@ -60,7 +62,10 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'TRCBZ-EO2HK-KYUJP-AHCVR-WD6V5-ZLB75'
+    });
     wx.getSystemInfo({
       success: function (res) {
         //设置map高度，根据当前设备宽高满屏显示
@@ -68,11 +73,7 @@ Page({
           view: {
             Height: res.windowHeight
           }
-
         })
-
-
-
       }
     })
 
@@ -90,17 +91,31 @@ Page({
             width: 50,
             height: 50,
             iconPath: "/assests/imgs/my.png",
-            title: "哪里"
+            title: _this.nowWhere
 
           }],
-
-
         })
+        _this.showAddress(res.latitude, res.longitude);
       }
 
     })
 
   },
+
+  //点击merkers
+  markertap(e) {
+    console.log(e.markerId)
+
+    wx.showActionSheet({
+      itemList: ["A"],
+      success: function (res) {
+        console.log(res.tapIndex)
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  }, 
 
  
   /**
@@ -133,6 +148,30 @@ Page({
       animationEnd() {
         console.log('animation end')
       }
+    })
+  },
+
+  // 腾讯地图逆向解析地址
+  showAddress: function (latitude, longitude) {
+    var that = this;
+    var qqMapBaseUrl = 'http://apis.map.qq.com/ws/geocoder/v1/'; 
+    var qqkey = 'TRCBZ-EO2HK-KYUJP-AHCVR-WD6V5-ZLB75';
+    var qqMapApi = qqMapBaseUrl + "?location=" + latitude + ',' +
+      longitude + "&key=" + qqkey + "&get_poi=1";
+    wx.request({
+      url: qqMapApi,
+      data: {},
+      method: 'GET',
+      success: (res) => {
+        console.log(res)
+        if (res.statusCode == 200 && res.data.status == 0) {
+          that.setData({
+            nowWhere: res.data.result.formatted_addresses.recommend,
+    			});
+          console.log("### address: " + res.data.result.address);
+          wx.setStorageSync('address', res.data.result.address);
+        }
+    	}
     })
   },
 

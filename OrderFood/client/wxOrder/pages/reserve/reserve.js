@@ -1,8 +1,13 @@
 var network = require('../../common/netWork.js')
+var QQMapWX = require('../../common/qqmap-wx-jssdk.js');
+
+var qqmapsdk;
 
 Page({
     data: {
       address:'深圳南山高新园',
+      latitude:0,
+      longitude:0,
       reduceIcon:"/images/dianc_list_ic_reduce.png",
       addIcon: "/images/dianc_list_ic_plus.png",
       cartIcon: "/images/ic_shop.png",
@@ -28,13 +33,41 @@ Page({
    * 生命周期函数--监听页面加载
    */
    onLoad: function () {
+     var _this = this;
+
      this.getSkuTypeList();
+
+     wx.getLocation({
+       type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
+       success: function (res) {
+
+         _this.setData({
+           latitude: res.latitude,
+           longitude: res.longitude,
+         })
+         _this.showAddress(res.latitude, res.longitude);
+       }
+
+     })
    },
 
    /**
     * 生命周期函数--监听页面显示
     */
    onShow: function () {
+     var _that = this;
+     try {
+       var value = wx.getStorageSync('address')
+       _that.setData({
+         address: value
+       })
+       if (value) {
+         // Do something with return value
+       }
+     } catch (e) {
+       // Do something when catch error
+     }
+
 
    },
 
@@ -52,6 +85,30 @@ Page({
    chooseAddress:function(){
      wx.navigateTo({
        url: '/pages/map/location'
+     })
+   },
+
+   // 腾讯地图逆向解析地址
+   showAddress: function (latitude, longitude) {
+     var that = this;
+     var qqMapBaseUrl = 'http://apis.map.qq.com/ws/geocoder/v1/';
+     var qqkey = 'TRCBZ-EO2HK-KYUJP-AHCVR-WD6V5-ZLB75';
+     var qqMapApi = qqMapBaseUrl + "?location=" + latitude + ',' +
+       longitude + "&key=" + qqkey + "&get_poi=1";
+     wx.request({
+       url: qqMapApi,
+       data: {},
+       method: 'GET',
+       success: (res) => {
+         console.log(res)
+         if (res.statusCode == 200 && res.data.status == 0) {
+           that.setData({
+             address: res.data.result.address,
+           });
+           console.log("### address: " + res.data.result.address);
+           wx.setStorageSync('address', res.data.result.address);
+         }
+       }
      })
    },
 
