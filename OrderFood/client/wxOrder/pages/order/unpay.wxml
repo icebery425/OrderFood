@@ -13,7 +13,7 @@
 
       <view class="head-item">
         <text class="head-hint">送餐地址：</text>
-        <input bindinput="userAddressInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="100" type="number" placeholder="请输入您的送餐地址" />
+        <input bindinput="userAddressInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="100" type="number" placeholder="请输入您的送餐地址" value='{{address}}'/>
         <view class="arrow-right2">
           <image src="/images/ic_choose.png" class="right-image2"> </image>
         </view>

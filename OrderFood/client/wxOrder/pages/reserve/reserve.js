@@ -287,7 +287,7 @@ Page({
     console.log("items count: " + _that.data.orderitem.length);
     let str = JSON.stringify(_that.data.orderitem);;
     wx.navigateTo({
-      url: '/pages/order/unpay?items=' + str,
+      url: '/pages/order/unpay?address=' + _that.data.address + '&items=' + str,
     })
 
 

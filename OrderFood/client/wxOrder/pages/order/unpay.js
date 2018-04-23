@@ -34,7 +34,8 @@ Page({
 
     this.setData({
       orderItems: tempitem,
-      totalPrice: _that.data.totalPrice
+      totalPrice: _that.data.totalPrice,
+      address:option.address
     })
 
   },
