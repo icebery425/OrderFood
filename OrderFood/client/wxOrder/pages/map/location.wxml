@@ -1,8 +1,2 @@
 <!--pages/map/location.wxml-->
-<view class="view-map">
-  <map id="mymap" 
-                scale="14"  
-                show-location                  
-                style="width:100%;height:{{Height}}px;top:0;"></map>
-
-</view>
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" circles="{{circles}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: {{view.Height}}px;"></map>
