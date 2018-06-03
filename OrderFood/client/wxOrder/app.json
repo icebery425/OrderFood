@@ -6,7 +6,8 @@
     "pages/message/message",
     "pages/coupon/coupon",
     "pages/map/location",
-    "pages/order/list"
+    "pages/order/list",
+    "pages/index/register"
   ],
   "window": {
     "backgroundTextStyle": "light",

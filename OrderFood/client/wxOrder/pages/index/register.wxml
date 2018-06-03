@@ -1,0 +1,57 @@
+<view class="topcontainer">
+
+
+    <view class="tcontainer">
+
+        <image src="../../../images/register_logo.png" class="logo"></image>
+
+        <view class="singleContainer">
+            <image class="icon_phone" src="../../../images/icon_phone.png" mode="aspectFill"></image>
+            <input bindinput="bindMobileInput" style="width:500rpx;font-size:28rpx;color:#999999;height:88rpx;focus:true;box-sizing: border-box;type:number;" maxlength="11" type="number" placeholder="请输入手机号码" />
+        </view>
+        <view class="tdivider_line" style="background-color:#e5e5e5" />
+
+        <view class="code_first_container">
+
+            <view class="sec_container">
+                <view class="third_Container">
+                    <image class="icon_pwd" src="../../../images/icon_pwd.png" mode="aspectFill"></image>
+                    <input bindinput="bindAuthCodeInput" style="flex:1;font-size:28rpx;color:#999999;height:88rpx;box-sizing: border-box;type:number;" type="number" maxlength="6" placeholder="请输入姓名" />
+                </view>
+                <view class="sec_divider_line" style="background-color:#e5e5e5" />
+            </view>
+
+        </view>
+
+        <view class="code_first_container">
+
+            <view class="sec_container">
+                <view class="third_Container">
+                    <image class="icon_pwd" src="../../../images/icon_pwd.png" mode="aspectFill"></image>
+                    <input bindinput="bindAuthCodeInput" style="flex:1;font-size:28rpx;color:#999999;height:88rpx;box-sizing: border-box;type:number;" type="number" maxlength="6" placeholder="请输入常用地址" />
+                </view>
+                <view class="sec_divider_line" style="background-color:#e5e5e5" />
+            </view>
+
+        </view>
+
+    </view>
+
+    <form report-submit='true' bindsubmit='formSubmit'>
+      <button class='register_btn' hover-class='btn-hover'  form-type='submit' >注册并绑定微信</button>
+    </form>
+<!-- bindtap="doclick" -->
+    <view class="bottom_container">
+
+        <view class="agreement">
+            <image class="checkimg" mode="aspectFill" src="{{checkimg}}" bindtap="checkBoxClick"></image>
+            <view class="textstyle">我已阅读并同意签署</view>
+            <view style="color:#14b4f0;font-size:24rpx" bindtap="readProtocolClick">《用户协议》</view>
+        </view>
+    </view>
+
+
+
+
+</view>
+

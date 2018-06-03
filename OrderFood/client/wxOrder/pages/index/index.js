@@ -157,6 +157,14 @@ doOrder:function(e){
 
   },
 
+  registerCommit: function (e) {
+    var _that = this;
+    wx.navigateTo({
+      url: '/pages/index/register'
+    })
+
+  },
+
   mineOrders:function(e){
     wx.navigateTo({
       url: '/pages/order/list'

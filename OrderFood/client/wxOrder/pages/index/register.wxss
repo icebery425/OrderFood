@@ -1,0 +1,192 @@
+
+.topcontainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: #fff;
+}
+
+.logo{
+  width:162rpx;
+  height: 162rpx;
+
+}
+
+.tcontainer {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 128rpx;
+}
+
+.tdivider_line {
+  height: 1px;
+  width: 570rpx;
+  background: gray;
+}
+
+.sec_divider_line {
+  height: 1rpx;
+  flex: 1;
+  background: gray;
+  margin-top: 0px;
+}
+
+.authcode_container {
+  width: 570rpx;
+  display: flex;
+  margin-top: 5px;
+  box-sizing: border-box;
+ 
+  
+}
+
+.sec_container{
+   flex: 1;
+   height: 88rpx;
+   flex-direction:row;
+   align-items: center;
+   margin-right: 10px;
+   
+}
+
+.singleContainer{
+  display: flex;
+  width: 570rpx;
+  height: 88rpx;
+  flex-direction:row;
+  align-items: center;
+  margin-top: 105rpx;
+}
+
+.third_Container{
+  display: flex;
+  flex:1;
+  height: 88rpx;
+  flex-direction:row;
+  align-items: center;
+}
+
+.code_first_container{
+  display: flex;
+  width: 570rpx;
+  height: 88rpx;
+  margin-top: 5px;
+}
+
+.icon_phone{
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.icon_pwd{
+  width: 44rpx;
+  height: 44rpx;
+}
+
+
+
+.agreement {
+  width: 570rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 30rpx;
+  box-sizing: border-box;
+}
+
+.textstyle {
+  color: #353535;
+  font-size: 24rpx;
+}
+
+.seceditcontainer {
+  position: absolute;
+}
+
+.mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 9000;
+}
+
+.mask-msg {
+  height: 50px;
+  width: 550rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  font-size: 18px;
+  color: #000;
+}
+
+.checkimg{
+  width: 32rpx;
+  height:32rpx;
+  margin-right: 5px;
+}
+
+.bottom_container {
+  
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+.authbtn {
+  height: 65rpx;
+  width: 220rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  color: #fff;
+  background-color:#15b4f0;
+  margin-top: 27rpx;
+}
+
+.gray_authbtn {
+   height: 65rpx;
+  width: 220rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: gray;
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background-color:gray;
+  margin-top: 27rpx;
+}
+
+.register_btn{
+  width:570rpx;
+  height:88rpx;
+  color:#fff;
+  background-color:#15b4f0;
+  margin-top:15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+}
+
+.btn-hover{
+ background-color:#15b4f0;
+ opacity: 0.8;
+}
+
